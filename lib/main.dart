@@ -156,30 +156,43 @@ class _MainAppSelector extends StatelessWidget {
       appBar: AppBar(
         title: Text('App selector'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyApp(),
-                  ));
-            },
-            child: Text('Handyman User'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CustomerAppSplash(),
-                  ));
-            },
-            child: Text('Customer'),
-          ),
-        ],
+      body: Container(
+        margin: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyApp(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Handyman User'),
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CustomerAppSplash(),
+                    ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Customer'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

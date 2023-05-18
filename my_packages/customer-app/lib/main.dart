@@ -9,31 +9,31 @@ import 'src/helper/dimensions.dart';
 import 'src/models/setting.dart';
 import 'src/repositories/setting_repository.dart' as setting;
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   AwesomeNotifications().initialize(
-//     null,
-//     [
-//       NotificationChannel(
-//         channelGroupKey: 'high_importance_channel_group',
-//         channelKey: 'high_importance_channel',
-//         channelName: 'Important notifications',
-//         channelDescription: 'App Notifications',
-//         defaultColor: Color(0xFF007FF4),
-//       )
-//     ],
-//     channelGroups: [
-//       NotificationChannelGroup(
-//           channelGroupkey: 'high_importance_channel_group',
-//           channelGroupName: 'Important group')
-//     ],
-//     debug: true,
-//   );
-//
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await GlobalConfiguration().loadFromAsset("app_settings");
-//   runApp(const CustomerMainPage());
-// }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelGroupKey: 'high_importance_channel_group',
+        channelKey: 'high_importance_channel',
+        channelName: 'Important notifications',
+        channelDescription: 'App Notifications',
+        defaultColor: Color(0xFF007FF4),
+      )
+    ],
+    channelGroups: [
+      NotificationChannelGroup(
+          channelGroupkey: 'high_importance_channel_group',
+          channelGroupName: 'Important group')
+    ],
+    debug: true,
+  );
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await GlobalConfiguration().loadFromAsset("app_settings");
+  runApp(const CustomerMainPage());
+}
 
 class CustomerAppSplash extends StatelessWidget {
   const CustomerAppSplash({Key? key}) : super(key: key);
