@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "133336386533",
+    "project_id": "speedtaxi-7af58",
+    "storage_bucket": "speedtaxi-7af58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133336386533:android:e3dc3b696aad597f943d0c",
+        "android_client_info": {
+          "package_name": "com.codearix.speedtaxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOSGeirb8fvNVfhh4fM7zyfdu3rDmjil4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133336386533-cqtinccbopm54annireokmjvm4k3tco0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.branchminer.flubberdriver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133336386533:android:9e9b4f010448a4f9943d0c",
+        "android_client_info": {
+          "package_name": "com.speedtaxi.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133336386533-67h3eq66pgna2l90732vjnnjkq1fetjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.speedtaxi.driver",
+            "certificate_hash": "b1bfbec8259d3186649b03d5753f20e8962c4727"
+          }
+        },
+        {
+          "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOSGeirb8fvNVfhh4fM7zyfdu3rDmjil4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133336386533-cqtinccbopm54annireokmjvm4k3tco0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.branchminer.flubberdriver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133336386533:android:2f5473a62c970c29943d0c",
+        "android_client_info": {
+          "package_name": "com.speedtaxi.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133336386533-bdmhomlenrj2ffj0tngqhf82envnfi6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.speedtaxi.user",
+            "certificate_hash": "b1bfbec8259d3186649b03d5753f20e8962c4727"
+          }
+        },
+        {
+          "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOSGeirb8fvNVfhh4fM7zyfdu3rDmjil4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133336386533-8npn78uikcr254j9c95g9d4mhpk82hvq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "133336386533-cqtinccbopm54annireokmjvm4k3tco0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.branchminer.flubberdriver"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
