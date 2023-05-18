@@ -70,6 +70,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  driver_customer_app:
+    path: my_packages/customer-app
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,6 +82,7 @@ dev_dependencies:
   #flutter packages pub run build_runner build --delete-conflicting-outputs
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/icons/
@@ -86,4 +91,8 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/lottie/
-
+    - my_packages/customer-app/assets/
+    - assets/img/
+    - my_packages/customer-app/assets/img/
+    - assets/cfg/
+    - assets/

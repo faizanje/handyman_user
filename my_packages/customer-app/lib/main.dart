@@ -9,40 +9,105 @@ import 'src/helper/dimensions.dart';
 import 'src/models/setting.dart';
 import 'src/repositories/setting_repository.dart' as setting;
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelGroupKey: 'high_importance_channel_group',
-        channelKey: 'high_importance_channel',
-        channelName: 'Important notifications',
-        channelDescription: 'App Notifications',
-        defaultColor: Color(0xFF007FF4),
-      )
-    ],
-    channelGroups: [
-      NotificationChannelGroup(
-          channelGroupkey: 'high_importance_channel_group',
-          channelGroupName: 'Important group')
-    ],
-    debug: true,
-  );
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   AwesomeNotifications().initialize(
+//     null,
+//     [
+//       NotificationChannel(
+//         channelGroupKey: 'high_importance_channel_group',
+//         channelKey: 'high_importance_channel',
+//         channelName: 'Important notifications',
+//         channelDescription: 'App Notifications',
+//         defaultColor: Color(0xFF007FF4),
+//       )
+//     ],
+//     channelGroups: [
+//       NotificationChannelGroup(
+//           channelGroupkey: 'high_importance_channel_group',
+//           channelGroupName: 'Important group')
+//     ],
+//     debug: true,
+//   );
+//
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await GlobalConfiguration().loadFromAsset("app_settings");
+//   runApp(const CustomerMainPage());
+// }
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await GlobalConfiguration().loadFromAsset("app_settings");
-  runApp(const MainPage());
-}
-
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class CustomerAppSplash extends StatelessWidget {
+  const CustomerAppSplash({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: FutureBuilder(
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // While waiting for the future to complete, show a loading indicator
+              return CircularProgressIndicator(
+                color: Colors.white,
+              );
+            } else if (snapshot.hasError) {
+              // If there is an error, display an error message
+              return Text('Error: ${snapshot.error}');
+            } else {
+              // If the future is completed successfully, navigate to the home screen
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => CustomerMainPage(),
+                  ),
+                );
+              });
+              return Container();
+            }
+          },
+          future: initAppDependencies(),
+        ),
+      ),
+    );
+  }
+
+  Future<void> initAppDependencies() async {
+    AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelGroupKey: 'high_importance_channel_group',
+          channelKey: 'high_importance_channel',
+          channelName: 'Important notifications',
+          channelDescription: 'App Notifications',
+          defaultColor: Color(0xFF007FF4),
+        )
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+            channelGroupkey: 'high_importance_channel_group',
+            channelGroupName: 'Important group')
+      ],
+      debug: true,
+    );
+
+    WidgetsFlutterBinding.ensureInitialized();
+    // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
+    await GlobalConfiguration().loadFromMap({
+      "base_url": "https://speedtaxi.org/",
+      "api_base_url": "https://speedtaxi.org/api/"
+    });
+  }
 }
 
-class _MainPageState extends State<MainPage> {
+class CustomerMainPage extends StatefulWidget {
+  const CustomerMainPage({Key? key}) : super(key: key);
+
+  @override
+  _CustomerMainPageState createState() => _CustomerMainPageState();
+}
+
+class _CustomerMainPageState extends State<CustomerMainPage> {
   @override
   void initState() {
     super.initState();

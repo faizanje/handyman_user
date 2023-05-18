@@ -27,7 +27,7 @@ class NotificationRepository {
         name: "customer", options: DefaultFirebaseOptions.currentPlatform);
     // android support only
 
-    if (!FirebaseMessaging.instance.isSupported()) {
+    if (!await (FirebaseMessaging.instance.isSupported())) {
       return;
     }
 
@@ -75,7 +75,7 @@ class NotificationRepository {
 
   Future<void> updateFcmToken(User currentUser) async {
     if (currentUser.token.isNotEmpty &&
-        FirebaseMessaging.instance.isSupported()) {
+        await (FirebaseMessaging.instance.isSupported())) {
       NotificationSettings notificationSetting =
           await FirebaseMessaging.instance.requestPermission();
       if (notificationSetting.authorizationStatus !=
