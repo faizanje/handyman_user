@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.iqonic.servicebooking'
+        applicationId 'com.codearix.veergram.user'
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 55

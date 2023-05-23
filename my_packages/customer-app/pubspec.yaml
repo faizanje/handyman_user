@@ -4,29 +4,29 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  mvc_pattern: ^8.11.0
+  mvc_pattern: any
   adaptive_theme: ^3.1.1
   global_configuration: ^2.0.0-nullsafety.1
   flutter_secure_storage: ^5.0.2
   fluttertoast: ^8.0.8
   font_awesome_flutter: ^10.1.0
-  awesome_notifications: ^0.6.21
+  awesome_notifications: any
   cupertino_icons: ^1.0.2
   flutter_html: ^3.0.0-alpha.5
   auto_size_text: ^3.0.0
-  brasil_fields: 1.4.2
-  firebase_messaging: ^14.6.1
-  firebase_core: ^2.9.0
-  firebase_analytics: ^10.4.1
+  brasil_fields: any
+  firebase_messaging: ^11.2.4
+  firebase_core: ^1.10.6
+  firebase_analytics: ^9.1.6
   url_launcher: ^6.0.20
   sign_button: ^2.0.2
-  google_sign_in: ^6.0.2
+  google_sign_in: ^5.4.0
   validators: ^3.0.0
   google_place: ^0.4.7
   flutter_typeahead: ^4.0.0
@@ -37,12 +37,11 @@ dependencies:
   loader_overlay: ^2.0.7
   timeline_tile: ^2.0.0
   flutter_switch: ^0.3.2
-  flutter_stripe: ^9.0.0+1
+  flutter_stripe: ^4.0.0
   webview_flutter: ^3.0.4
-#  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.9.2
   change_app_package_name: ^1.1.0
-#  location: ^4.4.0
-  geolocator: ^9.0.2
+  location: ^4.4.0
   google_maps_flutter: ^2.1.12
   place_picker: ^0.9.19
   avatar_glow: ^2.0.2
@@ -50,26 +49,24 @@ dependencies:
   file_picker: ^5.2.0+1
   mime: ^1.0.2
   flutter_polyline_points: ^1.0.0
-  firebase_core_platform_interface: 4.8.0
+  firebase_core_platform_interface: 4.5.1
 
   flutter_localizations:
     sdk: flutter
   maps_launcher: ^2.0.1
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
   change_app_package_name: ^1.1.0
-#  flutter_launcher_icons: ^0.9.2
-#dependency_overrides:
-#  firebase_core_platform_interface: 4.5.1
+  flutter_launcher_icons: ^0.9.2
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
 flutter_icons:
   android: true
   ios: true
-#  image_path: "my_packages/customer-app/assets/img/logo.jpeg"
-#  remove_alpha_ios: true
+  image_path: "assets/img/logo.jpeg"
+  remove_alpha_ios: true
   flutter_test:
     sdk: flutter
 
@@ -77,14 +74,13 @@ flutter_icons:
 
 flutter:
   assets:
-#    - my_packages/customer-app/assets/cfg/
-    - assets/img/
-#    - my_packages/customer-app/assets/img/
     - assets/cfg/
-    - assets/
-#    - my_packages/customer-app/assets/
-  uses-material-design: true
+    - assets/img/
+
   generate: true
+
+  uses-material-design: true
+
   fonts:
     - family: CM Sans Serif
       fonts:

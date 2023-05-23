@@ -269,13 +269,14 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
 
   @override
   void initState() {
+    print("Home MAp");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      mapType: MapType.normal,
+      mapType: MapType.none,
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       markers: _markers,
