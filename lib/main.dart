@@ -183,7 +183,7 @@ class _MainAppSelector extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CustomerAppSplash(),
+                      builder: (context) => CustomerMainPage(),
                     ));
               },
               child: Padding(

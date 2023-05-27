@@ -11,24 +11,24 @@ import 'src/repositories/setting_repository.dart' as setting;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelGroupKey: 'high_importance_channel_group',
-        channelKey: 'high_importance_channel',
-        channelName: 'Important notifications',
-        channelDescription: 'App Notifications',
-        defaultColor: Color(0xFF007FF4),
-      )
-    ],
-    channelGroups: [
-      NotificationChannelGroup(
-          channelGroupkey: 'high_importance_channel_group',
-          channelGroupName: 'Important group')
-    ],
-    debug: true,
-  );
+  // AwesomeNotifications().initialize(
+  //   null,
+  //   [
+  //     NotificationChannel(
+  //       channelGroupKey: 'high_importance_channel_group',
+  //       channelKey: 'high_importance_channel',
+  //       channelName: 'Important notifications',
+  //       channelDescription: 'App Notifications',
+  //       defaultColor: Color(0xFF007FF4),
+  //     )
+  //   ],
+  //   channelGroups: [
+  //     NotificationChannelGroup(
+  //         channelGroupkey: 'high_importance_channel_group',
+  //         channelGroupName: 'Important group')
+  //   ],
+  //   debug: true,
+  // );
 
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalConfiguration().loadFromAsset("app_settings");
@@ -65,7 +65,7 @@ class CustomerAppSplash extends StatelessWidget {
               return Container();
             }
           },
-          future: initAppDependencies(),
+
         ),
       ),
     );
@@ -103,16 +103,46 @@ class CustomerAppSplash extends StatelessWidget {
 class CustomerMainPage extends StatefulWidget {
   const CustomerMainPage({Key? key}) : super(key: key);
 
+
   @override
   _CustomerMainPageState createState() => _CustomerMainPageState();
 }
 
 class _CustomerMainPageState extends State<CustomerMainPage> {
+
+
   @override
   void initState() {
     super.initState();
+    initAppDependencies();
   }
+  Future<void> initAppDependencies() async {
+    AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelGroupKey: 'high_importance_channel_group',
+          channelKey: 'high_importance_channel',
+          channelName: 'Important notifications',
+          channelDescription: 'App Notifications',
+          defaultColor: Color(0xFF007FF4),
+        )
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+            channelGroupkey: 'high_importance_channel_group',
+            channelGroupName: 'Important group')
+      ],
+      debug: true,
+    );
 
+    WidgetsFlutterBinding.ensureInitialized();
+    // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
+    await GlobalConfiguration().loadFromMap({
+      "base_url": "https://speedtaxi.org/",
+      "api_base_url": "https://speedtaxi.org/api/"
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
