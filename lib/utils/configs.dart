@@ -5,7 +5,7 @@ const APP_NAME = 'Handyman Service';
 const APP_NAME_TAG_LINE = 'On-Demand Home Services App';
 var defaultPrimaryColor = Color(0xFF5F60B9);
 
-const DOMAIN_URL = 'https://apps.iqonic.design/handyman';
+const DOMAIN_URL = 'https://veerhandyman.eshkihmak.online';
 const BASE_URL = '$DOMAIN_URL/api/';
 
 const DEFAULT_LANGUAGE = 'en';
@@ -31,12 +31,6 @@ const HELP_LINE_NUMBER = '+15265897485';
 const STRIPE_MERCHANT_COUNTRY_CODE = 'IN';
 const STRIPE_CURRENCY_CODE = 'INR';
 DateTime todayDate = DateTime(2023, 5, 26);
-
-
-
-
-
-
 
 /// SADAD PAYMENT DETAIL
 const SADAD_API_URL = 'https://api-s.sadad.qa';

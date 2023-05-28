@@ -78,6 +78,7 @@ class SplashScreenState extends StateMVC<SplashScreen> {
         progress += _progress;
       }
       if (progress == 100) {
+
         Navigator.of(context).pushReplacementNamed("/Home");
       }
     });

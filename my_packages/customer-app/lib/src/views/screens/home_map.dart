@@ -87,6 +87,8 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
   }
 
   void _onMapCreated(GoogleMapController _cntlr) {
+    print("on map created");
+
     _controller = _cntlr;
     setMapStyle();
     getInitialLocation();
