@@ -24,8 +24,9 @@ Future<void> main() async {
     ],
     channelGroups: [
       NotificationChannelGroup(
-          channelGroupkey: 'high_importance_channel_group',
-          channelGroupName: 'Important group')
+        channelGroupName: 'Important group',
+        channelGroupkey: 'high_importance_channel_group',
+      )
     ],
     debug: true,
   );
@@ -80,7 +81,6 @@ class CustomerAppSplash extends StatelessWidget {
   }
 
   Future<void> initAppDependencies() async {
-
     print("Initialze map");
     AwesomeNotifications().initialize(
       null,
@@ -95,19 +95,16 @@ class CustomerAppSplash extends StatelessWidget {
       ],
       channelGroups: [
         NotificationChannelGroup(
-            channelGroupkey: 'high_importance_channel_group',
-            channelGroupName: 'Important group')
+          channelGroupName: 'Important group',
+          channelGroupkey: 'high_importance_channel_group',
+        )
       ],
       debug: true,
     );
     // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
     // await GlobalConfiguration().loadFromAsset("app_settings");
-    await GlobalConfiguration().loadFromMap(
-        {
-          "base_url": "https://speedtaxi.org/",
-          "api_base_url": "https://speedtaxi.org/api/"
-        }
-    );
+    await GlobalConfiguration()
+        .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
     print("Initialze map end");
   }
 }
@@ -120,12 +117,10 @@ class CustomerMainPage extends StatefulWidget {
 }
 
 class _CustomerMainPageState extends State<CustomerMainPage> {
-
   @override
   void initState() {
     super.initState();
     initAppDependencies();
-
   }
 
   Future<void> initAppDependencies() async {
@@ -143,28 +138,19 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
         )
       ],
       channelGroups: [
-        NotificationChannelGroup(
-            channelGroupkey: 'high_importance_channel_group',
-            channelGroupName: 'Important group')
+        NotificationChannelGroup(channelGroupkey: 'high_importance_channel_group', channelGroupName: 'Important group')
       ],
       debug: true,
     );
     // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
     // await GlobalConfiguration().loadFromAsset("app_settings");
-    await GlobalConfiguration().loadFromMap(
-        {
-
-            "base_url": "https://speedtaxi.org/",
-            "api_base_url": "https://speedtaxi.org/api/"
-
-        }
-    );
+    await GlobalConfiguration()
+        .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
     print("Map loaded");
   }
 
   @override
   Widget build(BuildContext context) {
-
     return ValueListenableBuilder(
         valueListenable: setting.setting,
         builder: (context, Setting _setting, _) {
@@ -172,39 +158,23 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
             light: ThemeData(
               textTheme: const TextTheme(
                 button: TextStyle(color: Colors.white),
-                headline1: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                headline2: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                headline3: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                headline4: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                headline5: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                headline6: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                caption: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                subtitle1:
-                    TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+                headline1:
+                    TextStyle(fontWeight: FontWeight.w300, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                headline2:
+                    TextStyle(fontWeight: FontWeight.w400, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                headline3:
+                    TextStyle(fontWeight: FontWeight.w500, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                headline4:
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                headline5:
+                    TextStyle(fontWeight: FontWeight.w700, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                headline6:
+                    TextStyle(fontWeight: FontWeight.w800, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                caption:
+                    TextStyle(fontWeight: FontWeight.w900, color: Colors.black, fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                subtitle1: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                 bodyText2: TextStyle(fontSize: 12.0),
-                bodyText1:
-                    TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+                bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
               ),
               fontFamily: 'Uber',
               hintColor: Color.fromRGBO(224, 224, 224, 1),
@@ -214,38 +184,22 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
               textTheme: const TextTheme(
                 button: TextStyle(color: Color(0xFFF9FAFA)),
                 headline1: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w300, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 headline2: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w400, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 headline3: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w500, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 headline4: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w600, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 headline5: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w700, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 headline6: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                    fontWeight: FontWeight.w800, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 caption: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Color(0xFFF9FAFA),
-                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                subtitle1:
-                    TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.w900, color: Color(0xFFF9FAFA), fontSize: Dimensions.FONT_SIZE_DEFAULT),
+                subtitle1: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                 bodyText2: TextStyle(fontSize: 12.0),
-                bodyText1:
-                    TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+                bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
               ),
               fontFamily: 'Uber',
               brightness: Brightness.dark,

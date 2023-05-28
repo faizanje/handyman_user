@@ -78,7 +78,6 @@ class SplashScreenState extends StateMVC<SplashScreen> {
         progress += _progress;
       }
       if (progress == 100) {
-
         Navigator.of(context).pushReplacementNamed("/Home");
       }
     });
@@ -94,8 +93,7 @@ class SplashScreenState extends StateMVC<SplashScreen> {
         body: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor),
+              decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -104,32 +102,30 @@ class SplashScreenState extends StateMVC<SplashScreen> {
                   children: <Widget>[
                     const SizedBox(height: 50),
                     CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).hintColor),
+                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
                     ),
                   ],
                 ),
               ),
             ),
             Positioned.fill(
-                // top: 0,
-                // bottom: 0,
-                // left: 0,
-                // right: 0,
-                child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              color: Colors.black,
+              // top: 0,
+              // bottom: 0,
+              // left: 0,
+              // right: 0,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: MediaQuery.of(context).size.width * 0.9,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/img/logo.jpeg')),
-                    shape: BoxShape.circle),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                color: Colors.black,
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage('assets/img/logo.jpeg')), shape: BoxShape.circle),
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),

@@ -20,7 +20,7 @@ import geolocator_apple
 import location
 import maps_launcher
 import nb_utils
-import package_info_plus_macos
+import package_info_plus
 import path_provider_foundation
 import shared_preferences_foundation
 import sqflite

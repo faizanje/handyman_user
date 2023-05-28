@@ -33,9 +33,7 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
   Location _location = Location();
   late StreamSubscription<LocationData> locationSubscription;
   LocationData? _currentLocation;
-  Map<String, BitmapDescriptor> _customIcons = {
-    'default': BitmapDescriptor.defaultMarker
-  };
+  Map<String, BitmapDescriptor> _customIcons = {'default': BitmapDescriptor.defaultMarker};
   PolylinePoints polylinePoints = PolylinePoints();
   LatLng _initialcameraposition = LatLng(
     -14.6825207,
@@ -47,10 +45,7 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
   }
 
   Future<void> updatDriversAround() async {
-    await _rideCon
-        .doGetDriversAround(
-            _currentLocation!.latitude!, _currentLocation!.longitude!)
-        .then((value) {
+    await _rideCon.doGetDriversAround(_currentLocation!.latitude!, _currentLocation!.longitude!).then((value) {
       _rideCon.driversAround.forEach((driver) {
         addDriverMarker(driver);
       });
@@ -60,29 +55,22 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
   Future<void> setVehicleIcon(VehicleType vehicle) async {
     final completer = Completer<ImageInfo>();
     var img = NetworkImage(vehicle.picture!.url);
-    img.resolve(const ImageConfiguration()).addListener(
-        ImageStreamListener((info, _) => completer.complete(info)));
+    img.resolve(const ImageConfiguration()).addListener(ImageStreamListener((info, _) => completer.complete(info)));
     final imageInfo = await completer.future;
-    ByteData? data =
-        await imageInfo.image.toByteData(format: ui.ImageByteFormat.png);
+    ByteData? data = await imageInfo.image.toByteData(format: ui.ImageByteFormat.png);
     if (data != null) {
-      ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-          targetWidth: 200);
+      ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: 200);
       ui.FrameInfo fi = await codec.getNextFrame();
-      final Uint8List markerIcon =
-          (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-              .buffer
-              .asUint8List();
+      final Uint8List markerIcon = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
       setState(() {
-        _customIcons
-            .addAll({vehicle.id: BitmapDescriptor.fromBytes(markerIcon)});
+        _customIcons.addAll({vehicle.id: BitmapDescriptor.fromBytes(markerIcon)});
       });
     }
   }
 
   Future<void> setMapStyle() async {
-    String style =
-        await DefaultAssetBundle.of(context).loadString(Assets.mapStyle);
+    String style = await DefaultAssetBundle.of(context).loadString(Assets.mapStyle);
+    print('setMapStyle ${style}');
     _controller.setMapStyle(style);
   }
 
@@ -96,8 +84,7 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
 
   Future<void> addDriverMarker(Driver driver) async {
     try {
-      if (driver.vehicleType != null &&
-          !_customIcons.containsKey(driver.vehicleType!.id)) {
+      if (driver.vehicleType != null && !_customIcons.containsKey(driver.vehicleType!.id)) {
         await setVehicleIcon(driver.vehicleType!);
       }
     } catch (e) {}
@@ -109,8 +96,7 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
               driver.lat!,
               driver.lng!,
             ),
-            icon: driver.vehicleType != null &&
-                    _customIcons.containsKey(driver.vehicleType!.id)
+            icon: driver.vehicleType != null && _customIcons.containsKey(driver.vehicleType!.id)
                 ? _customIcons[driver.vehicleType!.id]!
                 : _customIcons['default']!),
       );
@@ -124,13 +110,11 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
           Marker(
             markerId: MarkerId("marker-destination"),
             position: pickup,
-            icon:
-                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
           ),
         );
       } else {
-        _markers.removeWhere(
-            (element) => element.markerId == MarkerId("marker-destination"));
+        _markers.removeWhere((element) => element.markerId == MarkerId("marker-destination"));
       }
       if (destination != null) {
         _markers.add(
@@ -140,20 +124,14 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
           ),
         );
       } else {
-        _markers.removeWhere(
-            (element) => element.markerId == MarkerId("marker-pickup"));
+        _markers.removeWhere((element) => element.markerId == MarkerId("marker-pickup"));
       }
     });
-    if (pickup != null &&
-        destination != null &&
-        setting.value.googleMapsKey != null) {
+    if (pickup != null && destination != null && setting.value.googleMapsKey != null) {
       List<LatLng> polylineCoordinates = [];
-      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-          setting.value.googleMapsKey!,
-          PointLatLng(pickup.latitude, pickup.longitude),
-          PointLatLng(destination.latitude, destination.longitude),
-          travelMode: TravelMode.driving,
-          wayPoints: []);
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(setting.value.googleMapsKey!,
+          PointLatLng(pickup.latitude, pickup.longitude), PointLatLng(destination.latitude, destination.longitude),
+          travelMode: TravelMode.driving, wayPoints: []);
       if (result.points.isNotEmpty) {
         result.points.forEach((PointLatLng point) {
           polylineCoordinates.add(LatLng(point.latitude, point.longitude));
@@ -162,11 +140,8 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
       setState(() {
         polylines.clear();
         PolylineId id = PolylineId("poly");
-        Polyline polyline = Polyline(
-            polylineId: id,
-            width: 8,
-            color: Theme.of(context).primaryColor,
-            points: polylineCoordinates);
+        Polyline polyline =
+            Polyline(polylineId: id, width: 8, color: Theme.of(context).primaryColor, points: polylineCoordinates);
         polylines[id] = polyline;
       });
     } else {
@@ -187,24 +162,20 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
     } else if (pickup != null) {
       _controller.moveCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(
-              target: pickup, zoom: await _controller.getZoomLevel()),
+          CameraPosition(target: pickup, zoom: await _controller.getZoomLevel()),
         ),
       );
     } else if (destination != null) {
       _controller.moveCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(
-              target: destination, zoom: await _controller.getZoomLevel()),
+          CameraPosition(target: destination, zoom: await _controller.getZoomLevel()),
         ),
       );
-    } else if (_currentLocation?.latitude != null &&
-        _currentLocation?.longitude != null) {
+    } else if (_currentLocation?.latitude != null && _currentLocation?.longitude != null) {
       _controller.moveCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-              target: LatLng(
-                  _currentLocation!.latitude!, _currentLocation!.longitude!),
+              target: LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!),
               zoom: await _controller.getZoomLevel()),
         ),
       );
@@ -248,9 +219,7 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
       }
       _controller.animateCamera(
         CameraUpdate.newCameraPosition(
-          CameraPosition(
-              target: LatLng(_locationData.latitude!, _locationData.longitude!),
-              zoom: 16),
+          CameraPosition(target: LatLng(_locationData.latitude!, _locationData.longitude!), zoom: 16),
         ),
       );
       updatDriversAround().then((value) {
@@ -277,8 +246,16 @@ class HomeMapScreenState extends StateMVC<HomeMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return GoogleMap(
+    //   initialCameraPosition: CameraPosition(
+    //     target: LatLng(
+    //       -14.6825207,
+    //       -49.7332467,
+    //     ),
+    //   ),
+    // );
     return GoogleMap(
-      mapType: MapType.none,
+      // mapType: MapType.none,
       zoomControlsEnabled: false,
       myLocationEnabled: true,
       markers: _markers,

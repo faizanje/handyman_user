@@ -11,7 +11,8 @@ import OneSignal
   ) -> Bool {
 
       GeneratedPluginRegistrant.register(with: self)
-      GMSServices.provideAPIKey("AIzaSyA-abiOKMWsv7oLrdZ8wXClkg0WeJ2gXSU")
+      GMSServices.provideAPIKey("AIzaSyADPPUrR0O7TGmWggwLh0GqRnat0T9Vbvc")
+//       GMSServices.provideAPIKey("AIzaSyA-abiOKMWsv7oLrdZ8wXClkg0WeJ2gXSU")
        // Remove this method to stop OneSignal Debugging
       OneSignal.setLogLevel(.LL_VERBOSE, visualLevel: .LL_NONE)
 

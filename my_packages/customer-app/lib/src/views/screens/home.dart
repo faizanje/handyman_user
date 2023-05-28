@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:driver_customer_app/src/views/widgets/payment_method_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:location/location.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -38,7 +39,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends StateMVC<HomeScreen> {
   GlobalKey<HomeMapScreenState> homeMapKey = GlobalKey();
   LocationData? _currentLocation;
-  VehicleType? vehicleTypeSelected = setting.value.vehicleTypes.where((element) => element.isDefault).isNotEmpty ? setting.value.vehicleTypes.where((element) => element.isDefault).first : null;
+  VehicleType? vehicleTypeSelected = setting.value.vehicleTypes.where((element) => element.isDefault).isNotEmpty
+      ? setting.value.vehicleTypes.where((element) => element.isDefault).first
+      : null;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   late RideController _con;
@@ -123,7 +126,12 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                   child: BottomAppBar(
                     child: Container(
                       height: ((_con.simulation != null || _con.simulating) ? 130 : 0) +
-                          (vehicleTypeSelected != null && destination != null && selectedPaymentMethod != null && _con.driversNearBy.isNotEmpty ? 70 : 0),
+                          (vehicleTypeSelected != null &&
+                                  destination != null &&
+                                  selectedPaymentMethod != null &&
+                                  _con.driversNearBy.isNotEmpty
+                              ? 70
+                              : 0),
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -133,7 +141,10 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           else if (_con.simulation != null)
                             Column(
                               children: [
-                                if (pickup != null && vehicleTypeSelected != null && !_con.loading && _con.driversNearBy.isEmpty)
+                                if (pickup != null &&
+                                    vehicleTypeSelected != null &&
+                                    !_con.loading &&
+                                    _con.driversNearBy.isEmpty)
                                   Padding(
                                     padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT),
                                     child: Center(
@@ -156,13 +167,16 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                             barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
                                             barrierColor: Colors.black45,
                                             transitionDuration: const Duration(milliseconds: 200),
-                                            pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+                                            pageBuilder: (BuildContext buildContext, Animation animation,
+                                                Animation secondaryAnimation) {
                                               return Dialog(
                                                 child: PaymentMethodListWidget(
                                                   selectedPaymentMethod,
                                                   (SelectedPaymentMethod? paymentMethod) {
                                                     setState(() {
-                                                      if (paymentMethod != null && selectedPaymentMethod != null && selectedPaymentMethod!.id == paymentMethod.id) {
+                                                      if (paymentMethod != null &&
+                                                          selectedPaymentMethod != null &&
+                                                          selectedPaymentMethod!.id == paymentMethod.id) {
                                                         selectedPaymentMethod = null;
                                                       } else {
                                                         selectedPaymentMethod = paymentMethod;
@@ -183,7 +197,9 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                         child: ListTile(
                                           dense: true,
                                           title: Text(
-                                            selectedPaymentMethod == null ? AppLocalizations.of(context)!.selectPaymentMethod : AppLocalizations.of(context)!.payWith(selectedPaymentMethod!.name),
+                                            selectedPaymentMethod == null
+                                                ? AppLocalizations.of(context)!.selectPaymentMethod
+                                                : AppLocalizations.of(context)!.payWith(selectedPaymentMethod!.name),
                                             style: kSubtitleStyle.copyWith(
                                               color: Theme.of(context).highlightColor,
                                             ),
@@ -210,7 +226,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 width: MediaQuery.of(context).size.width * 0.5 - 10,
                                 child: Text(
                                   AppLocalizations.of(context)!.distance,
-                                  style: kTitleStyle.copyWith(height: 1.2, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_2),
+                                  style:
+                                      kTitleStyle.copyWith(height: 1.2, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_2),
                                 ),
                               ),
                               Container(
@@ -235,12 +252,14 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 width: MediaQuery.of(context).size.width * 0.5 - 10,
                                 child: Text(
                                   AppLocalizations.of(context)!.total,
-                                  style: kTitleStyle.copyWith(height: 1.2, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_2),
+                                  style:
+                                      kTitleStyle.copyWith(height: 1.2, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_2),
                                 ),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.5 - 10,
-                                child: Text('${NumberFormat.simpleCurrency(name: setting.value.currency).currencySymbol} ${_con.simulation!.originalPrice.toStringAsFixed(2)}',
+                                child: Text(
+                                    '${NumberFormat.simpleCurrency(name: setting.value.currency).currencySymbol} ${_con.simulation!.originalPrice.toStringAsFixed(2)}',
                                     style: kSubtitleStyle.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                               )
                             ],
@@ -252,7 +271,10 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     context.loaderOverlay.show();
-                                    await _con.doSubmit(pickup!, destination!, vehicleTypeSelected!, selectedPaymentMethod!, observation).then((id) {
+                                    await _con
+                                        .doSubmit(pickup!, destination!, vehicleTypeSelected!, selectedPaymentMethod!,
+                                            observation)
+                                        .then((id) {
                                       Navigator.pushNamed(context, '/Ride',
                                           arguments: ScreenArgument({
                                             'rideId': id,
@@ -287,6 +309,11 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                 ),
           body: Stack(
             children: [
+              // Container(
+              //   height: 200,
+              //   width: 200,
+              //   color: Colors.red,
+              // ),
               HomeMapScreen(
                 key: homeMapKey,
                 locationChanged: (LocationData? location) {
@@ -295,6 +322,15 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                   });
                 },
               ),
+
+              // GoogleMap(
+              //   initialCameraPosition: CameraPosition(
+              //     target: LatLng(
+              //       -14.6825207,
+              //       -49.7332467,
+              //     ),
+              //   ),
+              // ),
               Form(
                 key: _formKey,
                 child: Row(
@@ -368,10 +404,14 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               child: Container(
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  color: vehicleTypeSelected?.id == vehicleType.id ? Theme.of(context).primaryColor : Colors.transparent,
+                                  color: vehicleTypeSelected?.id == vehicleType.id
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.transparent,
                                   borderRadius: BorderRadius.horizontal(
                                     left: index == 0 ? Radius.circular(20) : Radius.zero,
-                                    right: index == setting.value.vehicleTypes.length - 1 ? Radius.circular(20) : Radius.zero,
+                                    right: index == setting.value.vehicleTypes.length - 1
+                                        ? Radius.circular(20)
+                                        : Radius.zero,
                                   ),
                                 ),
                                 padding: EdgeInsets.all(8),
@@ -380,7 +420,9 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     AutoSizeText(
                                       vehicleType.name,
                                       style: kSubtitleStyle.copyWith(
-                                        color: selected ? Theme.of(context).highlightColor : Theme.of(context).primaryColor,
+                                        color: selected
+                                            ? Theme.of(context).highlightColor
+                                            : Theme.of(context).primaryColor,
                                       ),
                                       minFontSize: 8,
                                       maxLines: 1,
@@ -438,7 +480,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                          borderRadius:
+                              BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
                               offset: Offset(0, 0),
@@ -462,7 +505,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                   pickup = CreateRideAddress(address);
                                 });
                                 homeMapKey.currentState!.zoomMarkers(address?.latLng, destination?.address.latLng);
-                                homeMapKey.currentState!.addLocationMarker(address?.latLng, destination?.address.latLng);
+                                homeMapKey.currentState!
+                                    .addLocationMarker(address?.latLng, destination?.address.latLng);
                                 if (vehicleTypeSelected != null) {
                                   await _con.doFindNearBy(pickup!, vehicleTypeSelected!);
                                   if (destination != null) {
@@ -470,17 +514,23 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                   }
                                 }
                               },
-                              defaultLocation: pickup != null && pickup!.address.latLng?.latitude != null && pickup!.address.latLng?.longitude != null
+                              defaultLocation: pickup != null &&
+                                      pickup!.address.latLng?.latitude != null &&
+                                      pickup!.address.latLng?.longitude != null
                                   ? LatLng(
                                       pickup!.address.latLng!.latitude,
                                       pickup!.address.latLng!.longitude,
                                     )
-                                  : destination != null && destination!.address.latLng?.latitude != null && destination!.address.latLng?.longitude != null
+                                  : destination != null &&
+                                          destination!.address.latLng?.latitude != null &&
+                                          destination!.address.latLng?.longitude != null
                                       ? LatLng(
                                           destination!.address.latLng!.latitude,
                                           destination!.address.latLng!.longitude,
                                         )
-                                      : _currentLocation != null && _currentLocation!.latitude != null && _currentLocation!.longitude != null
+                                      : _currentLocation != null &&
+                                              _currentLocation!.latitude != null &&
+                                              _currentLocation!.longitude != null
                                           ? LatLng(
                                               _currentLocation!.latitude!,
                                               _currentLocation!.longitude!,
@@ -511,18 +561,18 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           errorBorder: InputBorder.none,
                           focusedBorder: pickup != null
                               ? OutlineInputBorder(
-                            borderRadius: BorderRadius.zero,
-                            borderSide: BorderSide.none,
-                          )
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide.none,
+                                )
                               : OutlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5),
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide.none,
-                          ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                  ),
+                                  borderSide: BorderSide.none,
+                                ),
                           suffixIcon: pickup != null
                               ? IconButton(
                                   onPressed: () {
@@ -537,7 +587,9 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                   icon: Icon(FontAwesomeIcons.xmark, color: Colors.red),
                                 )
                               : null,
-                          suffixIconConstraints: destination != null ? BoxConstraints(minWidth: 30, maxWidth: 30, minHeight: 10) : BoxConstraints(),
+                          suffixIconConstraints: destination != null
+                              ? BoxConstraints(minWidth: 30, maxWidth: 30, minHeight: 10)
+                              : BoxConstraints(),
                           focusedErrorBorder: InputBorder.none,
                           isRequired: false,
                           labelStyle: TextStyle(
@@ -578,7 +630,8 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     destination = address;
                                   });
                                   homeMapKey.currentState!.zoomMarkers(pickup?.address.latLng, address.address.latLng);
-                                  homeMapKey.currentState!.addLocationMarker(pickup?.address.latLng, address.address.latLng);
+                                  homeMapKey.currentState!
+                                      .addLocationMarker(pickup?.address.latLng, address.address.latLng);
                                   if (pickup != null && vehicleTypeSelected != null) {
                                     await _con.doSimulate(pickup!, destination!, vehicleTypeSelected!);
                                   }
@@ -630,22 +683,29 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                         destination = CreateRideAddress(address);
                                       });
                                       homeMapKey.currentState!.zoomMarkers(pickup?.address.latLng, address?.latLng);
-                                      homeMapKey.currentState!.addLocationMarker(pickup?.address.latLng, address?.latLng);
+                                      homeMapKey.currentState!
+                                          .addLocationMarker(pickup?.address.latLng, address?.latLng);
                                       if (pickup != null && vehicleTypeSelected != null) {
                                         await _con.doSimulate(pickup!, destination!, vehicleTypeSelected!);
                                       }
                                     },
-                                    defaultLocation: destination != null && destination!.address.latLng?.latitude != null && destination!.address.latLng?.longitude != null
+                                    defaultLocation: destination != null &&
+                                            destination!.address.latLng?.latitude != null &&
+                                            destination!.address.latLng?.longitude != null
                                         ? LatLng(
                                             destination!.address.latLng!.latitude,
                                             destination!.address.latLng!.longitude,
                                           )
-                                        : pickup != null && pickup!.address.latLng?.latitude != null && pickup!.address.latLng?.longitude != null
+                                        : pickup != null &&
+                                                pickup!.address.latLng?.latitude != null &&
+                                                pickup!.address.latLng?.longitude != null
                                             ? LatLng(
                                                 pickup!.address.latLng!.latitude,
                                                 pickup!.address.latLng!.longitude,
                                               )
-                                            : _currentLocation != null && _currentLocation!.latitude != null && _currentLocation!.longitude != null
+                                            : _currentLocation != null &&
+                                                    _currentLocation!.latitude != null &&
+                                                    _currentLocation!.longitude != null
                                                 ? LatLng(
                                                     _currentLocation!.latitude!,
                                                     _currentLocation!.longitude!,
@@ -702,7 +762,9 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                       icon: Icon(FontAwesomeIcons.xmark, color: Colors.red),
                                     )
                                   : null,
-                              suffixIconConstraints: destination != null ? BoxConstraints(minWidth: 30, maxWidth: 30, minHeight: 10) : BoxConstraints(),
+                              suffixIconConstraints: destination != null
+                                  ? BoxConstraints(minWidth: 30, maxWidth: 30, minHeight: 10)
+                                  : BoxConstraints(),
                               focusedErrorBorder: InputBorder.none,
                               isRequired: false,
                               labelText: AppLocalizations.of(context)!.whereTo,
