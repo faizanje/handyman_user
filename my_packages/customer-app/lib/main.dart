@@ -36,70 +36,71 @@ Future<void> main() async {
   runApp(const CustomerMainPage());
 }
 
-class CustomerAppSplash extends StatelessWidget {
-  const CustomerAppSplash({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              // While waiting for the future to complete, show a loading indicator
-              return CircularProgressIndicator(
-                color: Colors.white,
-              );
-            } else if (snapshot.hasError) {
-              // If there is an error, display an error message
-              return Text('Error: ${snapshot.error}');
-            } else {
-              // If the future is completed successfully, navigate to the home screen
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => CustomerMainPage(),
-                  ),
-                );
-              });
-              return Container();
-            }
-          },
-          future: initAppDependencies(),
-        ),
-      ),
-    );
-  }
-
-  Future<void> initAppDependencies() async {
-    print("Initialze map");
-    AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-          channelGroupKey: 'high_importance_channel_group',
-          channelKey: 'high_importance_channel',
-          channelName: 'Important notifications',
-          channelDescription: 'App Notifications',
-          defaultColor: Color(0xFF007FF4),
-        )
-      ],
-      channelGroups: [
-        NotificationChannelGroup(
-          channelGroupName: 'Important group',
-          channelGroupkey: 'high_importance_channel_group',
-        )
-      ],
-      debug: true,
-    );
-    // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
-    // await GlobalConfiguration().loadFromAsset("app_settings");
-    await GlobalConfiguration()
-        .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
-    print("Initialze map end");
-  }
-}
+// class CustomerAppSplash extends StatelessWidget {
+//   const CustomerAppSplash({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         body: FutureBuilder(
+//           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+//             if (snapshot.connectionState == ConnectionState.waiting) {
+//               // While waiting for the future to complete, show a loading indicator
+//               return CircularProgressIndicator(
+//                 color: Colors.white,
+//               );
+//             } else if (snapshot.hasError) {
+//               // If there is an error, display an error message
+//               return Text('Error: ${snapshot.error}');
+//             } else {
+//               // If the future is completed successfully, navigate to the home screen
+//               WidgetsBinding.instance.addPostFrameCallback((_) {
+//                 Navigator.pushReplacement(
+//                   context,
+//                   MaterialPageRoute(
+//                     builder: (BuildContext context) => CustomerMainPage(),
+//                   ),
+//                 );
+//               });
+//               return Container();
+//             }
+//           },
+//           future: initAppDependencies(),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Future<void> initAppDependencies() async {
+//     print("Initialze map");
+//     AwesomeNotifications().initialize(
+//       null,
+//       [
+//         NotificationChannel(
+//           channelGroupKey: 'high_importance_channel_group',
+//           channelKey: 'high_importance_channel',
+//           channelName: 'Important notifications',
+//           channelDescription: 'App Notifications',
+//           defaultColor: Color(0xFF007FF4),
+//         )
+//       ],
+//       channelGroups: [
+//         NotificationChannelGroup(
+//           channelGroupName: 'Important group',
+//           channelGroupkey: 'high_importance_channel_group',
+//         )
+//       ],
+//       debug: true,
+//     );
+//     // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
+//     // await GlobalConfiguration().loadFromAsset("app_settings");
+//     await GlobalConfiguration()
+//         .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
+//     print("Initialze map end");
+//
+//   }
+// }
 
 class CustomerMainPage extends StatefulWidget {
   const CustomerMainPage({Key? key}) : super(key: key);
@@ -113,32 +114,6 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
   void initState() {
     super.initState();
     // initAppDependencies();
-  }
-
-  Future<void> initAppDependencies() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    print("Initialze map");
-    AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-          channelGroupKey: 'high_importance_channel_group',
-          channelKey: 'high_importance_channel',
-          channelName: 'Important notifications',
-          channelDescription: 'App Notifications',
-          defaultColor: Color(0xFF007FF4),
-        )
-      ],
-      channelGroups: [
-        NotificationChannelGroup(channelGroupkey: 'high_importance_channel_group', channelGroupName: 'Important group')
-      ],
-      debug: true,
-    );
-    // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
-    // await GlobalConfiguration().loadFromAsset("app_settings");
-    await GlobalConfiguration()
-        .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
-    print("Map loaded");
   }
 
   @override

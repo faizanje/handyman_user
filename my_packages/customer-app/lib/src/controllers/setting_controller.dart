@@ -38,8 +38,7 @@ class SettingController extends ControllerMVC {
         dark: ThemeData(
           primaryColor: _setting.mainColorDark ?? Colors.white,
           highlightColor: _setting.highlightColorDark ?? Colors.black,
-          scaffoldBackgroundColor:
-              _setting.backgroundColorDark ?? Colors.grey[850],
+          scaffoldBackgroundColor: _setting.backgroundColorDark ?? Colors.grey[850],
           backgroundColor: _setting.backgroundColorDark ?? Colors.grey[850],
           colorScheme: const ColorScheme.dark().copyWith(
             secondary: _setting.secondaryColorDark ?? Colors.white70,
@@ -49,6 +48,7 @@ class SettingController extends ControllerMVC {
         ),
       );
     }).catchError((error) {
+      print(error);
       print(CustomTrace(StackTrace.current, message: error.toString()));
       throw 'Erro ao buscar configurações';
     });

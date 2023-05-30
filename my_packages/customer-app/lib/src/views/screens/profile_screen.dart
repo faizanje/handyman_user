@@ -29,8 +29,7 @@ class ProfileScreen extends StatefulWidget {
 class ProfileScreenState extends StateMVC<ProfileScreen> {
   late UserController _userCon;
   TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController =
-      TextEditingController(text: currentUser.value.email);
+  TextEditingController emailController = TextEditingController(text: currentUser.value.email);
 
   final FocusNode _phoneFocus = FocusNode();
   final FocusNode _fullNameFocus = FocusNode();
@@ -65,8 +64,8 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    AdaptiveTheme.getThemeMode().then((theme) =>
-        setState(() => setting.value.theme = theme ?? AdaptiveThemeMode.light));
+    AdaptiveTheme.getThemeMode()
+        .then((theme) => setState(() => setting.value.theme = theme ?? AdaptiveThemeMode.light));
   }
 
   @override
@@ -80,10 +79,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
           backgroundColor: MyColor.primaryColor,
           title: Text(
             AppLocalizations.of(context)!.profile,
-            style: khulaSemiBold.copyWith(
-                color: Colors.white
-                ,
-                fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
+            style: khulaSemiBold.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
           ),
           elevation: 1,
           shadowColor: Theme.of(context).primaryColor,
@@ -121,8 +117,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                               width: 90,
                               height: 45,
                               toggleSize: 45.0,
-                              value:
-                                  setting.value.theme == AdaptiveThemeMode.dark,
+                              value: setting.value.theme == AdaptiveThemeMode.dark,
                               borderRadius: 30.0,
                               padding: 2.0,
                               activeToggleColor: Color(0xFF6E40C9),
@@ -148,12 +143,10 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                               onToggle: (isActive) {
                                 if (isActive) {
                                   AdaptiveTheme.of(context).setDark();
-                                  setState(() => setting.value.theme =
-                                      AdaptiveThemeMode.dark);
+                                  setState(() => setting.value.theme = AdaptiveThemeMode.dark);
                                 } else {
                                   AdaptiveTheme.of(context).setLight();
-                                  setState(() => setting.value.theme =
-                                      AdaptiveThemeMode.light);
+                                  setState(() => setting.value.theme = AdaptiveThemeMode.light);
                                 }
                               },
                             ),
@@ -162,16 +155,14 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                       ),
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       Padding(
-                        padding:
-                            const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                         child: CustomTextFormField(
                           errorText: nameError,
                           initialValue: name,
                           isRequired: true,
                           validator: (String value) {
                             if (value.isEmpty || value.length <= 3) {
-                              return AppLocalizations.of(context)!
-                                  .enterFullName;
+                              return AppLocalizations.of(context)!.enterFullName;
                             }
                             return null;
                           },
@@ -183,14 +174,11 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                           focusNode: _fullNameFocus,
                           nextFocus: _emailFocus,
                           inputType: TextInputType.name,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(150)
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(150)],
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                         child: CustomTextFormField(
                           controller: emailController,
                           errorText: emailError,
@@ -198,15 +186,12 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                           onSave: (String value) {
                             setState(() => email = value);
                           },
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(191)
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(191)],
                           validator: (String value) {
                             if (value.isEmpty) {
                               return AppLocalizations.of(context)!.enterEmail;
                             } else if (!isEmail(value)) {
-                              return AppLocalizations.of(context)!
-                                  .enterValidEmail;
+                              return AppLocalizations.of(context)!.enterValidEmail;
                             }
                             return null;
                           },
@@ -218,19 +203,16 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                         child: CustomTextFormField(
                           errorText: phoneError,
                           initialValue: phone,
                           isRequired: true,
                           validator: (String value) {
                             if (value.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .enterPhoneCorrectly;
+                              return AppLocalizations.of(context)!.enterPhoneCorrectly;
                             } else if (value.length < 10) {
-                              return AppLocalizations.of(context)!
-                                  .enterPhoneCorrectly;
+                              return AppLocalizations.of(context)!.enterPhoneCorrectly;
                             }
                             return null;
                           },
@@ -248,8 +230,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                         child: CustomTextFormField(
                           errorText: passwordError,
                           controller: passwordController,
@@ -257,18 +238,14 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                           validator: (String value) {
                             if (value.isNotEmpty && value.length < 6) {
                               return AppLocalizations.of(context)!
-                                  .inputMinimumSize(
-                                      AppLocalizations.of(context)!.thePassword,
-                                      6);
+                                  .inputMinimumSize(AppLocalizations.of(context)!.thePassword, 6);
                             }
                             return null;
                           },
                           onSave: (String value) {
                             setState(() => password = value);
                           },
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(80)
-                          ],
+                          inputFormatters: [LengthLimitingTextInputFormatter(80)],
                           hintText: AppLocalizations.of(context)!.password,
                           labelText: AppLocalizations.of(context)!.password,
                           isPassword: true,
@@ -280,8 +257,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(
-                            left: Dimensions.PADDING_SIZE_SMALL,
-                            right: Dimensions.PADDING_SIZE_SMALL),
+                            left: Dimensions.PADDING_SIZE_SMALL, right: Dimensions.PADDING_SIZE_SMALL),
                         child: Container(
                           height: 45,
                           width: double.infinity,
@@ -308,45 +284,35 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                                       _formKey.currentState!.save();
                                       setState(() => loading = true);
                                       await _userCon
-                                          .doProfileUpdate(name, email, phone,
-                                              password: password)
+                                          .doProfileUpdate(name, email, phone, password: password)
                                           .then((value) {
                                         Fluttertoast.showToast(
-                                            msg: AppLocalizations.of(context)!
-                                                .dataUpdatedSuccessfully);
+                                            msg: AppLocalizations.of(context)!.dataUpdatedSuccessfully);
                                       }).catchError((error) {
                                         setState(() => loading = false);
                                         if (error.message is Map) {
                                           error.message.forEach((index, value) {
                                             switch (index) {
                                               case "name":
-                                                setState(
-                                                    () => nameError = value[0]);
+                                                setState(() => nameError = value[0]);
                                                 break;
                                               case "email":
-                                                setState(() =>
-                                                    emailError = value[0]);
+                                                setState(() => emailError = value[0]);
                                                 break;
                                               case "phone":
-                                                setState(() =>
-                                                    phoneError = value[0]);
+                                                setState(() => phoneError = value[0]);
                                                 break;
                                               case "password":
-                                                setState(() =>
-                                                    passwordError = value[0]);
+                                                setState(() => passwordError = value[0]);
                                                 break;
                                               default:
                                                 break;
                                             }
                                           });
                                         }
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text(
-                                              AppLocalizations.of(context)!
-                                                  .failedUpdate),
-                                          backgroundColor:
-                                              Theme.of(context).errorColor,
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text(AppLocalizations.of(context)!.failedUpdate),
+                                          backgroundColor: Theme.of(context).errorColor,
                                         ));
                                       });
                                       setState(() => loading = false);
@@ -354,18 +320,14 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                                     }
                                   },
                             child: loading
-                                ? CircularProgressIndicator(
-                                    color: Theme.of(context).highlightColor)
+                                ? CircularProgressIndicator(color: Theme.of(context).highlightColor)
                                 : Text(
                                     AppLocalizations.of(context)!.save,
-                                    style: poppinsSemiBold.copyWith(
-                                        color:
-                                            Theme.of(context).highlightColor),
+                                    style: poppinsSemiBold.copyWith(color: Theme.of(context).highlightColor),
                                   ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -378,8 +340,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                           await Future.delayed(Duration(seconds: 2));
                           await _userCon.doDeleteAccount().then((value) async {
                             await _userCon.doLogout();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/Login', (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context, '/Login', (route) => false);
                             setState(() {});
                           });
                         },

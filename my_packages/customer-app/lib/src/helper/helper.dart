@@ -14,8 +14,7 @@ extension StringExtension on String {
 }
 
 class Helper {
-  static Uri getUri(String path,
-      {bool addApiToken = true, Map<String, dynamic> queryParam = const {}}) {
+  static Uri getUri(String path, {bool addApiToken = true, Map<String, dynamic> queryParam = const {}}) {
     Map<String, dynamic> _queryParameters = {};
     if (addApiToken) {
       _queryParameters.addAll({"api_token": currentUser.value.token});
@@ -23,6 +22,7 @@ class Helper {
     _queryParameters.addAll(queryParam);
 
     if (kDebugMode) {
+      print('appConfig: ${GlobalConfiguration().appConfig}');
       print(Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
           .replace(queryParameters: _queryParameters));
     }
@@ -62,12 +62,10 @@ class Helper {
   }
 
   static String formatDateTime(DateTime dateTime, {withTime: true}) {
-    return DateFormat('dd/MM/yyyy${withTime ? ' | HH:mm' : ''}')
-        .format(dateTime);
+    return DateFormat('dd/MM/yyyy${withTime ? ' | HH:mm' : ''}').format(dateTime);
   }
 
-  static LatLngBounds getLatLngBounds(
-      LatLng firstCoordinates, LatLng secondCoordinates) {
+  static LatLngBounds getLatLngBounds(LatLng firstCoordinates, LatLng secondCoordinates) {
     double _southWestLat;
     double _southWestLong;
     double _northEastLat;

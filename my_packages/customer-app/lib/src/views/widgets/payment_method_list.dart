@@ -12,25 +12,19 @@ import '../../repositories/setting_repository.dart';
 
 class PaymentMethodListWidget extends StatelessWidget {
   final SelectedPaymentMethod? selectedPaymentMethod;
-  final Function? onSelectedPaymentChanged;
-  const PaymentMethodListWidget(
-      this.selectedPaymentMethod, this.onSelectedPaymentChanged,
-      {Key? key})
+  final Function(SelectedPaymentMethod? paymentMethod)? onSelectedPaymentChanged;
+  const PaymentMethodListWidget(this.selectedPaymentMethod, this.onSelectedPaymentChanged, {Key? key})
       : super(key: key);
 
-  Widget buildPaymentTile(
-      context, Widget icon, SelectedPaymentMethod paymentMethod) {
+  Widget buildPaymentTile(context, Widget icon, SelectedPaymentMethod paymentMethod) {
     bool isSelected = selectedPaymentMethod?.id == paymentMethod.id;
     return InkWell(
       onTap: () {
         if (isSelected) {
           onSelectedPaymentChanged!(paymentMethod);
-        }
-        else{
-
-       print(selectedPaymentMethod?.name);
-
-
+        } else {
+          this.onSelectedPaymentChanged?.call(paymentMethod);
+          print('selectedPaymentMethod?.name: ${selectedPaymentMethod?.name}');
         }
       },
       child: Container(
@@ -38,9 +32,7 @@ class PaymentMethodListWidget extends StatelessWidget {
         padding: const EdgeInsets.only(left: 9, top: 6, bottom: 7, right: 10),
         height: 55,
         decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).primaryColor
-              : Theme.of(context).scaffoldBackgroundColor,
+          color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Row(
           children: [
@@ -58,9 +50,7 @@ class PaymentMethodListWidget extends StatelessWidget {
                 paymentMethod.name,
                 style: khulaBold.copyWith(
                   fontSize: Dimensions.FONT_SIZE_LARGE,
-                  color: isSelected
-                      ? Theme.of(context).scaffoldBackgroundColor
-                      : MyColor.primaryColor,
+                  color: isSelected ? Theme.of(context).scaffoldBackgroundColor : MyColor.primaryColor,
                 ),
               ),
             ),
@@ -81,8 +71,8 @@ class PaymentMethodListWidget extends StatelessWidget {
               bottom: Dimensions.PADDING_SIZE_DEFAULT,
             ),
             child: Text(
-            'Select the payment method',
-              // AppLocalizations.of(context)!.selectPaymentMethod,
+              // 'Select the payment method',
+              AppLocalizations.of(context)!.selectPaymentMethod,
               style: kSubtitleStyle,
               textAlign: TextAlign.center,
             ),
@@ -97,9 +87,7 @@ class PaymentMethodListWidget extends StatelessWidget {
                     paymentMethod.picture!.url,
                   ),
             SelectedPaymentMethod(PaymentTypeEnum.offline,
-                id: paymentMethod.id,
-                name: paymentMethod.name,
-                offlinePaymentMethod: paymentMethod),
+                id: paymentMethod.id, name: paymentMethod.name, offlinePaymentMethod: paymentMethod),
           ),
         if (setting.value.stripeEnabled)
           buildPaymentTile(
@@ -113,8 +101,7 @@ class PaymentMethodListWidget extends StatelessWidget {
             ),
             SelectedPaymentMethod(PaymentTypeEnum.online,
                 id: PaymentGatewayEnum.stripe.name,
-                name: PaymentGatewayEnumHelper.description(
-                    PaymentGatewayEnum.stripe, context)),
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.stripe, context)),
           ),
         if (setting.value.mercadoPagoEnabled)
           buildPaymentTile(
@@ -124,8 +111,7 @@ class PaymentMethodListWidget extends StatelessWidget {
             ),
             SelectedPaymentMethod(PaymentTypeEnum.online,
                 id: PaymentGatewayEnum.mercado_pago.name,
-                name: PaymentGatewayEnumHelper.description(
-                    PaymentGatewayEnum.mercado_pago, context)),
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.mercado_pago, context)),
           ),
         if (setting.value.paypalEnabled)
           buildPaymentTile(
@@ -139,8 +125,7 @@ class PaymentMethodListWidget extends StatelessWidget {
             ),
             SelectedPaymentMethod(PaymentTypeEnum.online,
                 id: PaymentGatewayEnum.paypal.name,
-                name: PaymentGatewayEnumHelper.description(
-                    PaymentGatewayEnum.paypal, context)),
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.paypal, context)),
           ),
         if (setting.value.flutterwaveEnabled)
           buildPaymentTile(
@@ -151,8 +136,7 @@ class PaymentMethodListWidget extends StatelessWidget {
             SelectedPaymentMethod(
               PaymentTypeEnum.online,
               id: PaymentGatewayEnum.flutterwave.name,
-              name: PaymentGatewayEnumHelper.description(
-                  PaymentGatewayEnum.flutterwave, context),
+              name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.flutterwave, context),
             ),
           ),
         if (setting.value.razorpayEnabled)
@@ -164,8 +148,7 @@ class PaymentMethodListWidget extends StatelessWidget {
             SelectedPaymentMethod(
               PaymentTypeEnum.online,
               id: PaymentGatewayEnum.razorpay.name,
-              name: PaymentGatewayEnumHelper.description(
-                  PaymentGatewayEnum.razorpay, context),
+              name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.razorpay, context),
             ),
           ),
       ],

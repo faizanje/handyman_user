@@ -14,11 +14,7 @@ Future<User> login(String email, String password, bool rememberMe) async {
             'Accept': 'application/json',
             'Content-Type': 'application/json; charset=UTF-8',
           },
-          body: jsonEncode(<String, String>{
-            'email': email,
-            'password': password,
-            'remember': "1"
-          }))
+          body: jsonEncode(<String, String>{'email': email, 'password': password, 'remember': "1"}))
       .timeout(const Duration(seconds: 15));
 
   if (response.statusCode == HttpStatus.ok) {
@@ -68,8 +64,7 @@ Future<bool> forgotPassword(String email) async {
 }
 
 Future<User> verifyLogin(String apiToken) async {
-  var response =
-      await http.get(Helper.getUri('login/verify'), headers: <String, String>{
+  var response = await http.get(Helper.getUri('login/verify'), headers: <String, String>{
     'Accept': 'application/json',
     'Content-Type': 'application/json; charset=UTF-8',
   }).timeout(const Duration(seconds: 15));
@@ -82,12 +77,8 @@ Future<User> verifyLogin(String apiToken) async {
 }
 
 Future<User> register(String name, String email, String? phone, String password,
-    {String? photo}) async {
-  Map<String, String> body = {
-    'name': name,
-    'email': email,
-    'password': password
-  };
+    {String? photo, String? newDomain}) async {
+  Map<String, String> body = {'name': name, 'email': email, 'password': password};
   if (phone != null) {
     body.addAll({
       'phone': phone,
@@ -98,8 +89,10 @@ Future<User> register(String name, String email, String? phone, String password,
       'photo_url': photo,
     });
   }
+
+  final Uri uri = newDomain != null ? Uri.parse('${newDomain}register') : Helper.getUri('register', addApiToken: false);
   var response = await http
-      .post(Helper.getUri('register', addApiToken: false),
+      .post(uri,
           headers: <String, String>{
             'Accept': 'application/json',
             'Content-Type': 'application/json; charset=UTF-8',
@@ -115,20 +108,14 @@ Future<User> register(String name, String email, String? phone, String password,
   }
 }
 
-Future<User> profileUpdate(String name, String email, String phone,
-    {String? password}) async {
+Future<User> profileUpdate(String name, String email, String phone, {String? password}) async {
   var response = await http
       .post(Helper.getUri('profile'),
           headers: <String, String>{
             'Accept': 'application/json',
             'Content-Type': 'application/json; charset=UTF-8',
           },
-          body: jsonEncode(<String, dynamic>{
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'password': password
-          }))
+          body: jsonEncode(<String, dynamic>{'name': name, 'email': email, 'phone': phone, 'password': password}))
       .timeout(const Duration(seconds: 15));
 
   if (response.statusCode == HttpStatus.ok) {

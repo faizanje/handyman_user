@@ -27,34 +27,31 @@ class RouteGenerator {
       case '/Profile':
         return MaterialPageRoute(builder: (context) => ProfileScreen());
       case '/Splash':
-        return MaterialPageRoute(builder: (context) => const SplashScreen());
+        // return MaterialPageRoute(builder: (context) => const SplashScreen());
+        return MaterialPageRoute(builder: (context) => const BaseSplashScreen());
       case '/Login':
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case '/Signup':
         return MaterialPageRoute(builder: (context) => const SignupScreen());
       case '/SocialLogin':
         return MaterialPageRoute(
-          builder: (context) =>
-              SocialLogin(argument!.arguments['socialNetwork']),
+          builder: (context) => SocialLogin(argument!.arguments['socialNetwork']),
         );
       case '/Termos':
         return MaterialPageRoute(builder: (context) => LegalTermsWidget());
       case '/Ride':
         return MaterialPageRoute(
-          builder: (context) =>
-              RideScreen(rideId: argument!.arguments['rideId'] ?? ''),
+          builder: (context) => RideScreen(rideId: argument!.arguments['rideId'] ?? ''),
         );
       case '/Chat':
         return MaterialPageRoute(
           builder: (context) => ChatScreen(argument!.arguments['rideId'] ?? ''),
         );
       case '/ForgotPassword':
-        return MaterialPageRoute(
-            builder: (context) => const ForgotPasswordScreen());
+        return MaterialPageRoute(builder: (context) => const ForgotPasswordScreen());
       default:
         return MaterialPageRoute(
-          builder: (context) =>
-              const Scaffold(body: SafeArea(child: Text('Route Error'))),
+          builder: (context) => const Scaffold(body: SafeArea(child: Text('Route Error'))),
         );
     }
   }

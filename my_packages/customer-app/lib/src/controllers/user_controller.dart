@@ -34,15 +34,13 @@ class UserController extends ControllerMVC {
       }
       ;
     }).catchError((error) async {
-      if (error.runtimeType == CustomException &&
-          error.exception == ExceptionsEnum.userStatus) {
+      if (error.runtimeType == CustomException && error.exception == ExceptionsEnum.userStatus) {
         await userRepository.setUser(error.data['user']);
         await NotificationRepository().updateFcmToken(error.data['user']);
         throw error;
       } else {
         if (error.message == HttpStatus.unauthorized) {
-          throw AppLocalizations.of(scaffoldKey.currentContext!)!
-              .incorrectEmailPassword;
+          throw AppLocalizations.of(scaffoldKey.currentContext!)!.incorrectEmailPassword;
         }
         throw AppLocalizations.of(scaffoldKey.currentContext!)!.errorLogin;
       }
@@ -59,26 +57,22 @@ class UserController extends ControllerMVC {
       }
       ;
     }).catchError((error) async {
-      if (error.runtimeType == CustomException &&
-          error.exception == ExceptionsEnum.userStatus) {
+      if (error.runtimeType == CustomException && error.exception == ExceptionsEnum.userStatus) {
         await userRepository.setUser(error.data['user']);
         await NotificationRepository().updateFcmToken(error.data['user']);
         throw error;
       } else {
         if (error.message == HttpStatus.unauthorized) {
-          throw AppLocalizations.of(scaffoldKey.currentContext!)!
-              .incorrectEmailPassword;
+          throw AppLocalizations.of(scaffoldKey.currentContext!)!.incorrectEmailPassword;
         }
         throw AppLocalizations.of(scaffoldKey.currentContext!)!.errorLogin;
       }
     });
   }
 
-  Future<void> doRegister(
-      String name, String email, String? phone, String password,
-      {String? photo}) async {
-    await register(name, email, phone, password, photo: photo)
-        .then((User user) async {
+  Future<void> doRegister(String name, String email, String? phone, String password,
+      {String? photo, String? newDomain}) async {
+    await register(name, email, phone, password, photo: photo, newDomain: newDomain).then((User user) async {
       await userRepository.setUser(user);
       try {
         await NotificationRepository().updateFcmToken(user);
@@ -91,10 +85,8 @@ class UserController extends ControllerMVC {
     });
   }
 
-  Future<void> doProfileUpdate(String name, String email, String phone,
-      {String? password}) async {
-    await profileUpdate(name, email, phone, password: password)
-        .then((User user) async {
+  Future<void> doProfileUpdate(String name, String email, String phone, {String? password}) async {
+    await profileUpdate(name, email, phone, password: password).then((User user) async {
       await userRepository.setUser(user);
       try {
         await NotificationRepository().updateFcmToken(user);
@@ -150,16 +142,14 @@ class UserController extends ControllerMVC {
     await verifyLogin(currentUser.value.token).then((User user) async {
       await userRepository.setUser(user);
     }).catchError((error) async {
-      if (error.runtimeType == CustomException &&
-          error.exception == ExceptionsEnum.userStatus) {
+      if (error.runtimeType == CustomException && error.exception == ExceptionsEnum.userStatus) {
         await userRepository.setUser(error.data['user']);
         throw error;
       } else {
         if (error.message == HttpStatus.unauthorized) {
           await doLogout();
         } else {
-          throw AppLocalizations.of(scaffoldKey.currentContext!)!
-              .verifyConnection;
+          throw AppLocalizations.of(scaffoldKey.currentContext!)!.verifyConnection;
         }
       }
     });

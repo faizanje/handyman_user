@@ -162,35 +162,34 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                                     child: InkWell(
                                       onTap: () {
-
-                                        print("name"+selectedPaymentMethod!.name);
-                                        // showGeneralDialog(
-                                        //     context: context,
-                                        //     barrierDismissible: true,
-                                        //     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                        //     barrierColor: Colors.black45,
-                                        //     transitionDuration: const Duration(milliseconds: 200),
-                                        //     pageBuilder: (BuildContext buildContext, Animation animation,
-                                        //         Animation secondaryAnimation) {
-                                        //       return Dialog(
-                                        //         child: PaymentMethodListWidget(
-                                        //           selectedPaymentMethod,
-                                        //           (SelectedPaymentMethod? paymentMethod) {
-                                        //             setState(() {
-                                        //               if (paymentMethod != null &&
-                                        //                   selectedPaymentMethod != null &&
-                                        //                   selectedPaymentMethod!.id == paymentMethod.id) {
-                                        //                 selectedPaymentMethod = null;
-                                        //               } else {
-                                        //                 selectedPaymentMethod = paymentMethod;
-                                        //                 print(paymentMethod!.name);
-                                        //               }
-                                        //             });
-                                        //             Navigator.pop(context);
-                                        //           },
-                                        //         ),
-                                        //       );
-                                        //     });
+                                        print("name: ${selectedPaymentMethod?.toString()}");
+                                        showGeneralDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                            barrierColor: Colors.black45,
+                                            transitionDuration: const Duration(milliseconds: 200),
+                                            pageBuilder: (BuildContext buildContext, Animation animation,
+                                                Animation secondaryAnimation) {
+                                              return Dialog(
+                                                child: PaymentMethodListWidget(
+                                                  selectedPaymentMethod,
+                                                  (SelectedPaymentMethod? paymentMethod) {
+                                                    setState(() {
+                                                      if (paymentMethod != null &&
+                                                          selectedPaymentMethod != null &&
+                                                          selectedPaymentMethod!.id == paymentMethod.id) {
+                                                        selectedPaymentMethod = null;
+                                                      } else {
+                                                        selectedPaymentMethod = paymentMethod;
+                                                        print(paymentMethod!.name);
+                                                      }
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              );
+                                            });
                                       },
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
@@ -424,9 +423,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     AutoSizeText(
                                       vehicleType.name,
                                       style: kSubtitleStyle.copyWith(
-                                        color: selected
-                                            ? Theme.of(context).highlightColor
-                                            : MyColor.primaryColor,
+                                        color: selected ? Theme.of(context).highlightColor : MyColor.primaryColor,
                                       ),
                                       minFontSize: 8,
                                       maxLines: 1,

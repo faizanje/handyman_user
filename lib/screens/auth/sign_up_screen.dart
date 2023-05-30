@@ -21,6 +21,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:driver_customer_app/src/services/user_service.dart' as customer_user_service;
+import 'package:driver_customer_app/src/controllers/user_controller.dart' as customer_user_controller;
 
 class SignUpScreen extends StatefulWidget {
   final String? phoneNumber;
@@ -104,6 +106,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         await createUser(tempRegisterData.toJson()).then((registerResponse) async {
           registerResponse.userData!.password = passwordCont.text.trim();
+
+          final customerUserController = customer_user_controller.UserController();
+          await customerUserController.doRegister('${tempRegisterData.firstName} ${tempRegisterData.lastName}',
+              tempRegisterData.email!, tempRegisterData.contactNumber!, tempRegisterData.password!,
+              newDomain: 'https://speedtaxi.org/api/');
 
           /// After successful entry in the mysql database it will login into firebase.
           firebaseSignup(registerResponse: registerResponse);
@@ -225,7 +232,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         16.height,
         Text(language.lblHelloUser, style: boldTextStyle(size: 22)).center(),
         16.height,
-        Text(language.lblSignUpSubTitle, style: secondaryTextStyle(size: 14), textAlign: TextAlign.center).center().paddingSymmetric(horizontal: 32),
+        Text(language.lblSignUpSubTitle, style: secondaryTextStyle(size: 14), textAlign: TextAlign.center)
+            .center()
+            .paddingSymmetric(horizontal: 32),
       ],
     );
   }
@@ -400,7 +409,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: context.scaffoldBackgroundColor,
         leading: BackWidget(iconColor: context.iconColor),
         scrolledUnderElevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle(statusBarIconBrightness: appStore.isDarkMode ? Brightness.light : Brightness.dark, statusBarColor: context.scaffoldBackgroundColor),
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness: appStore.isDarkMode ? Brightness.light : Brightness.dark,
+            statusBarColor: context.scaffoldBackgroundColor),
       ),
       body: SizedBox(
         width: context.width(),

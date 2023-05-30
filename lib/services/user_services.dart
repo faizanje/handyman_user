@@ -10,11 +10,14 @@ import 'base_services.dart';
 class UserService extends BaseService {
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
+
   UserService() {
     ref = fireStore.collection(USER_COLLECTION);
   }
 
   Future<UserData> getUser({String? key, String? email}) {
+
+
     return ref!.where(key ?? "email", isEqualTo: email).limit(1).get().then((value) {
       if (value.docs.isNotEmpty) {
         return UserData.fromJson(value.docs.first.data() as Map<String, dynamic>);
