@@ -21,7 +21,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: Dimensions.PADDING_SIZE_LARGE,
                 vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE * 2),
-            child: Text(AppLocalizations.of(context)!.wantSignOut,
+            child: Text("Want to logout?",
                 style: rubikBold.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),
@@ -45,7 +45,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    AppLocalizations.of(context)!.yes,
+                    'Yes',
                     style: rubikBold.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -65,7 +65,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.no,
+                      'No',
                       style: rubikBold.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),

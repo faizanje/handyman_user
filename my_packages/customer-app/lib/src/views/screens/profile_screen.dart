@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:driver_customer_app/src/views/widgets/delete_account_confirmation_dialog.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,12 +76,13 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          backgroundColor: Theme.of(context).highlightColor,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: MyColor.primaryColor,
           title: Text(
             AppLocalizations.of(context)!.profile,
             style: khulaSemiBold.copyWith(
-                color: Theme.of(context).primaryColor,
+                color: Colors.white
+                ,
                 fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
           ),
           elevation: 1,
@@ -111,7 +113,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                               AppLocalizations.of(context)!.theme,
                               style: rubikBold.copyWith(
                                 fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_2,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: MyColor.primaryColor,
                               ),
                             ),
                             const Spacer(),
@@ -291,8 +293,8 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                                   blurRadius: 7,
                                   offset: const Offset(0, 1)),
                             ],
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(2),
+                            color: MyColor.primaryColor,
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: TextButton(
                             style: TextButton.styleFrom(
@@ -363,6 +365,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -388,7 +391,7 @@ class ProfileScreenState extends StateMVC<ProfileScreen> {
                     AppLocalizations.of(context)!.deleteMyAccount,
                     textAlign: TextAlign.center,
                     style: khulaSemiBold.copyWith(
-                      color: Colors.lightBlue.withOpacity(.7),
+                      color: MyColor.primaryColor,
                     ),
                   ),
                 ),

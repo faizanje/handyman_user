@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:driver_customer_app/src/repositories/setting_repository.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -112,7 +113,7 @@ class _CustomTextFieldState extends State<CustomTextFormField> {
           TextStyle(
             fontWeight: FontWeight.w500,
             color: Theme.of(context).primaryColor,
-            fontSize: 18,
+            fontSize: 16,
           ),
       textInputAction: widget.inputAction,
       keyboardType: widget.inputType,
@@ -180,8 +181,8 @@ class _CustomTextFieldState extends State<CustomTextFormField> {
             : Theme.of(context).hintColor.withOpacity(0.2),
         hintStyle: widget.hintStyle ??
             TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 17,
+              color: Theme.of(context).primaryColor.withOpacity(0.5),
+              fontSize: 16,
             ),
         floatingLabelBehavior: widget.floatingLabelBehavior,
         errorStyle: rubikBold,
@@ -191,23 +192,23 @@ class _CustomTextFieldState extends State<CustomTextFormField> {
         errorMaxLines: 2,
         focusedErrorBorder: widget.isBorder
             ? widget.focusedErrorBorder ??
-                UnderlineInputBorder(
+                OutlineInputBorder(
                   borderSide:
                       BorderSide(color: Theme.of(context).errorColor, width: 1),
                 )
             : InputBorder.none,
         disabledBorder: widget.isBorder
-            ? UnderlineInputBorder(
+            ? OutlineInputBorder(
                 borderSide: BorderSide(color: (Colors.grey[400])!, width: 0.7),
               )
             : InputBorder.none,
         errorBorder: !widget.enabled
             ? widget.errorBorder ??
-                UnderlineInputBorder(
+                OutlineInputBorder(
                   borderSide: BorderSide(color: (Colors.grey[400])!, width: 2),
                 )
             : widget.isBorder
-                ? UnderlineInputBorder(
+                ? OutlineInputBorder(
                     borderRadius:
                         BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                     borderSide: BorderSide(
@@ -216,20 +217,20 @@ class _CustomTextFieldState extends State<CustomTextFormField> {
                 : InputBorder.none,
         enabledBorder: widget.isBorder
             ? widget.enabledBorder ??
-                UnderlineInputBorder(
+                OutlineInputBorder(
                   borderSide: BorderSide(
                       color: setting.value.theme == AdaptiveThemeMode.light
-                          ? Theme.of(context).primaryColor
+                          ? Theme.of(context).primaryColor.withOpacity(0.5)
                           : Theme.of(context).highlightColor,
                       width: 1),
                 )
             : InputBorder.none,
         focusedBorder: widget.isBorder
             ? widget.focusedBorder ??
-                UnderlineInputBorder(
+                OutlineInputBorder(
                   borderSide: BorderSide(
                       color: setting.value.theme == AdaptiveThemeMode.light
-                          ? Theme.of(context).primaryColor
+                          ? MyColor.primaryColor
                           : Theme.of(context).highlightColor,
                       width: 1.5),
                 )

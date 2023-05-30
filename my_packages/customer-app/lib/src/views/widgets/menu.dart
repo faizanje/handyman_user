@@ -1,4 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:driver_customer_app/src/views/screens/auth/login_screen.dart';
+import 'package:driver_customer_app/src/views/screens/home.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -78,7 +81,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                                   fit: BoxFit.cover,
                                 )
                               : Image.asset(Assets.placeholderUser,
-                                  color: Theme.of(context).primaryColor,
+                                  color: MyColor.primaryColor,
                                   height: 100,
                                   width: 100,
                                   fit: BoxFit.scaleDown)),
@@ -90,7 +93,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                         currentUser.value.name,
                         style: TextStyle(
                             fontSize: Dimensions.FONT_SIZE_LARGE,
-                            color: Theme.of(context).primaryColor),
+                            color: MyColor.primaryColor),
                       ),
                     ),
                   ]),
@@ -113,12 +116,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                     }
                   },
                   leading: Icon(FontAwesomeIcons.house,
-                      color: Theme.of(context).primaryColor),
+                      color: MyColor.primaryColor),
                   title: Text(
                     AppLocalizations.of(context)!.home,
                     style: rubikMedium.copyWith(
                         fontSize: Dimensions.FONT_SIZE_LARGE,
-                        color: Theme.of(context).primaryColor),
+                        color: MyColor.primaryColor),
                   ),
                 ),
                 if (currentUser.value.auth)
@@ -138,12 +141,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           }
                         },
                         leading: Icon(FontAwesomeIcons.carSide,
-                            color: Theme.of(context).primaryColor),
+                            color: MyColor.primaryColor),
                         title: Text(
                           AppLocalizations.of(context)!.recentRides,
                           style: rubikMedium.copyWith(
                               fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color: Theme.of(context).primaryColor),
+                              color: MyColor.primaryColor),
                         ),
                       ),
                       Divider(
@@ -160,12 +163,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           }
                         },
                         leading: Icon(FontAwesomeIcons.userPen,
-                            color: Theme.of(context).primaryColor),
+                            color: MyColor.primaryColor),
                         title: Text(
                           AppLocalizations.of(context)!.profile,
                           style: rubikMedium.copyWith(
                               fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color: Theme.of(context).primaryColor),
+                              color: MyColor.primaryColor),
                         ),
                       ),
                       Divider(
@@ -173,24 +176,72 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           height: 0),
                       ListTile(
                         horizontalTitleGap: 0,
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => SignOutConfirmationDialog(
-                                      onConfirmed: () async {
-                                    await _userCon.doLogout();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context, '/Login', (route) => false);
-                                    setState(() {});
-                                  }));
+                        onTap: () async {
+                          await _userCon.doLogout();
+                          Navigator.pushNamedAndRemoveUntil(context,'/Login', (route) => false);
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (context) =>
+                          //         AlertDialog(
+                          //           title: const Text('Logout'),
+                          //           content: const Text(
+                          //             'Are you sure you want to logout?',
+                          //           ),
+                          //           actions: <Widget>[
+                          //             TextButton(
+                          //               style: TextButton.styleFrom(
+                          //                 textStyle: Theme.of(context).textTheme.labelLarge,
+                          //               ),
+                          //               child: const Text('Yes'),
+                          //               onPressed: () async {
+                          //                 await _userCon.doLogout();
+                          //                 Navigator.pushNamedAndRemoveUntil(context,'/Login', (route) => false);
+                          //
+                          //
+                          //                 //
+                          //                 // Navigator.pushAndRemoveUntil(context,
+                          //                 //     MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+                          //                 //         (Route<dynamic> route) => route is HomeScreen
+                          //                 // );
+                          //                 setState(() { });
+                          //
+                          //                 // Navigator.pushNamedAndRemoveUntil(context,'/Login', (Route<dynamic> route) => false);
+                          //                 Navigator.of(context).pop();
+                          //                 // Navigator.pushAndRemoveUntil(
+                          //                 //     context, LoginScreen(), (route)=>false);
+                          //
+                          //               },
+                          //             ),
+                          //             TextButton(
+                          //               style: TextButton.styleFrom(
+                          //                 textStyle: Theme.of(context).textTheme.labelLarge,
+                          //               ),
+                          //               child: const Text('No'),
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //             ),
+                          //           ],
+                          //         )
+                          //
+                          //     //     SignOutConfirmationDialog(
+                          //     //         onConfirmed: () async {
+                          //     //       // await _userCon.doLogout();
+                          //     //       // Navigator.pushNamedAndRemoveUntil(
+                          //     //       //     context, '/Login', (route) => false);
+                          //     //       // setState(() {});
+                          //     //     },
+                          //     //
+                          //     // )
+                          // );
                         },
                         leading: Icon(Icons.logout,
-                            color: Theme.of(context).primaryColor),
+                            color: MyColor.primaryColor),
                         title: Text(
                           AppLocalizations.of(context)!.logout,
                           style: rubikMedium.copyWith(
                               fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color: Theme.of(context).primaryColor),
+                              color: MyColor.primaryColor),
                         ),
                       ),
                     ],
@@ -212,12 +263,12 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                           }
                         },
                         leading: Icon(Icons.login,
-                            color: Theme.of(context).primaryColor),
+                            color: MyColor.primaryColor),
                         title: Text(
                           AppLocalizations.of(context)!.login,
                           style: rubikMedium.copyWith(
                               fontSize: Dimensions.FONT_SIZE_LARGE,
-                              color: Theme.of(context).primaryColor),
+                              color: MyColor.primaryColor),
                         ),
                       ),
                     ],

@@ -1,3 +1,4 @@
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -91,9 +92,9 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                     Text(
                       AppLocalizations.of(context)!.letsStartWithLogin,
                       style: kTitleStyle.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.PADDING_SIZE_EXTRA_LARGE,
-                      ),
+                          color: MyColor.primaryColor,
+                          fontSize: Dimensions.PADDING_SIZE_EXTRA_LARGE,
+                          fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
@@ -161,7 +162,7 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                                 blurRadius: 7,
                                 offset: const Offset(0, 1)),
                           ],
-                          color: Theme.of(context).primaryColor,
+                          color: MyColor.primaryColor,
                           borderRadius: BorderRadius.circular(2),
                         ),
                         child: TextButton(
@@ -270,8 +271,8 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                               AppLocalizations.of(context)!.skipForNow,
                               textAlign: TextAlign.end,
                               style: rubikRegular.copyWith(
-                                color: Colors.lightBlue,
-                              ),
+                                  color: MyColor.primaryColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           TextButton(
@@ -285,8 +286,8 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                               AppLocalizations.of(context)!.forgetPassword,
                               textAlign: TextAlign.end,
                               style: poppinsRegular.copyWith(
-                                color: Colors.lightBlue,
-                              ),
+                                  color: MyColor.primaryColor,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -316,8 +317,8 @@ class LoginScreenState extends StateMVC<LoginScreen> {
                       Text(
                         AppLocalizations.of(context)!.signUp,
                         style: poppinsRegular.copyWith(
-                          color: Colors.lightBlue,
-                        ),
+                            color: MyColor.primaryColor,
+                            fontWeight: FontWeight.w600),
                       )
                     ],
                   ),

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:driver_customer_app/src/views/widgets/payment_method_list.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -91,7 +92,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
             SizedBox(height: 50),
             Text(
               AppLocalizations.of(context)!.sendingRide,
-              style: kTitleStyle.copyWith(color: Theme.of(context).primaryColor),
+              style: kTitleStyle.copyWith(color: MyColor.primaryColor),
             )
           ],
         ),
@@ -161,37 +162,40 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                     padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                                     child: InkWell(
                                       onTap: () {
-                                        showGeneralDialog(
-                                            context: context,
-                                            barrierDismissible: true,
-                                            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                                            barrierColor: Colors.black45,
-                                            transitionDuration: const Duration(milliseconds: 200),
-                                            pageBuilder: (BuildContext buildContext, Animation animation,
-                                                Animation secondaryAnimation) {
-                                              return Dialog(
-                                                child: PaymentMethodListWidget(
-                                                  selectedPaymentMethod,
-                                                  (SelectedPaymentMethod? paymentMethod) {
-                                                    setState(() {
-                                                      if (paymentMethod != null &&
-                                                          selectedPaymentMethod != null &&
-                                                          selectedPaymentMethod!.id == paymentMethod.id) {
-                                                        selectedPaymentMethod = null;
-                                                      } else {
-                                                        selectedPaymentMethod = paymentMethod;
-                                                      }
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              );
-                                            });
+
+                                        print("name"+selectedPaymentMethod!.name);
+                                        // showGeneralDialog(
+                                        //     context: context,
+                                        //     barrierDismissible: true,
+                                        //     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                        //     barrierColor: Colors.black45,
+                                        //     transitionDuration: const Duration(milliseconds: 200),
+                                        //     pageBuilder: (BuildContext buildContext, Animation animation,
+                                        //         Animation secondaryAnimation) {
+                                        //       return Dialog(
+                                        //         child: PaymentMethodListWidget(
+                                        //           selectedPaymentMethod,
+                                        //           (SelectedPaymentMethod? paymentMethod) {
+                                        //             setState(() {
+                                        //               if (paymentMethod != null &&
+                                        //                   selectedPaymentMethod != null &&
+                                        //                   selectedPaymentMethod!.id == paymentMethod.id) {
+                                        //                 selectedPaymentMethod = null;
+                                        //               } else {
+                                        //                 selectedPaymentMethod = paymentMethod;
+                                        //                 print(paymentMethod!.name);
+                                        //               }
+                                        //             });
+                                        //             Navigator.pop(context);
+                                        //           },
+                                        //         ),
+                                        //       );
+                                        //     });
                                       },
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor.withOpacity(0.85),
+                                          color: MyColor.primaryColor.withOpacity(0.85),
                                           borderRadius: BorderRadius.circular(3),
                                         ),
                                         child: ListTile(
@@ -207,7 +211,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                           ),
                                           trailing: Icon(
                                             Icons.arrow_forward_ios,
-                                            color: Theme.of(context).highlightColor,
+                                            color: Colors.white,
                                             size: 15,
                                           ),
                                         ),
@@ -284,7 +288,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                   }
                                 },
                                 style: TextButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: MyColor.primaryColor,
                                     minimumSize: Size(MediaQuery.of(context).size.width, 50),
                                     padding: EdgeInsets.zero,
                                     shape: RoundedRectangleBorder(
@@ -345,7 +349,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                         icon: Icon(
                           Icons.menu,
                           size: 30,
-                          color: Colors.black,
+                          color: MyColor.primaryColor,
                         ),
                       ),
                     ),
@@ -371,7 +375,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           itemCount: setting.value.vehicleTypes.length,
                           separatorBuilder: (context, index) {
                             return VerticalDivider(
-                              color: Theme.of(context).primaryColor,
+                              color: MyColor.primaryColor,
                               width: 0,
                             );
                           },
@@ -405,7 +409,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                 width: 80,
                                 decoration: BoxDecoration(
                                   color: vehicleTypeSelected?.id == vehicleType.id
-                                      ? Theme.of(context).primaryColor
+                                      ? MyColor.primaryColor
                                       : Colors.transparent,
                                   borderRadius: BorderRadius.horizontal(
                                     left: index == 0 ? Radius.circular(20) : Radius.zero,
@@ -422,7 +426,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                       style: kSubtitleStyle.copyWith(
                                         color: selected
                                             ? Theme.of(context).highlightColor
-                                            : Theme.of(context).primaryColor,
+                                            : MyColor.primaryColor,
                                       ),
                                       minFontSize: 8,
                                       maxLines: 1,
@@ -594,17 +598,17 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           isRequired: false,
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor.withOpacity(0.5),
+                            color: MyColor.primaryColor.withOpacity(0.5),
                             fontSize: 19,
                           ),
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor.withOpacity(0.5),
+                            color: MyColor.primaryColor.withOpacity(0.5),
                             fontSize: 19,
                           ),
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor,
+                            color: MyColor.primaryColor,
                             fontSize: 15,
                           ),
                         ),
@@ -616,15 +620,15 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           itemCount: currentUser.value.addresses.length,
                           separatorBuilder: (BuildContext context, int index) => Divider(
                             height: 0,
-                            color: Theme.of(context).primaryColor,
+                            color: MyColor.primaryColor,
                             thickness: 0.2,
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             var address = currentUser.value.addresses[index];
                             return Material(
-                              color: Theme.of(context).primaryColor,
+                              color: MyColor.primaryColor,
                               child: InkWell(
-                                highlightColor: Theme.of(context).primaryColor,
+                                highlightColor: MyColor.primaryColor,
                                 onTap: () async {
                                   setState(() {
                                     destination = address;
@@ -665,7 +669,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                           children: [
                             Divider(
                               height: 0,
-                              color: Theme.of(context).primaryColor,
+                              color: MyColor.primaryColor,
                               thickness: 0.4,
                             ),
                             CustomTextFormField(
@@ -770,12 +774,12 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                               labelText: AppLocalizations.of(context)!.whereTo,
                               labelStyle: TextStyle(
                                 fontWeight: FontWeight.w400,
-                                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                                color: MyColor.primaryColor.withOpacity(0.5),
                                 fontSize: 19,
                               ),
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
-                                color: Theme.of(context).primaryColor,
+                                color: MyColor.primaryColor,
                                 fontSize: 15,
                               ),
                             )

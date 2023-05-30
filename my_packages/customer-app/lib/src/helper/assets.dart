@@ -8,6 +8,9 @@ class Assets {
   static const String mapStyle = 'assets/cfg/map_style.json';
   static const String flutterwave = 'assets/img/flutterwave-logo.png';
   static const String razorpay = 'assets/img/razorpay-logo.png';
+  static const String home = 'assets/img/home.png';
+  static const String profile = 'assets/img/profile.png';
+
 }
 // class Assets {
 //   static const String icon = 'my_packages/customer-app/assets/img/icon.png';

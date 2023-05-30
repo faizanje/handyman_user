@@ -29,6 +29,7 @@ dependencies:
   url_launcher: ^6.0.20
   sign_button: ^2.0.2
   google_sign_in: ^6.0.2
+
   validators: ^3.0.0
   google_place: ^0.4.7
   flutter_typeahead: ^4.0.0

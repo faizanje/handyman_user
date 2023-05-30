@@ -11,6 +11,7 @@ import 'src/repositories/setting_repository.dart' as setting;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  print("main");
   AwesomeNotifications().initialize(
     null,
     [
@@ -32,15 +33,6 @@ Future<void> main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await GlobalConfiguration().loadFromAsset("app_settings");
-  // await GlobalConfiguration().loadFromMap(
-  //     {
-  //
-  //       "base_url": "https://speedtaxi.org/",
-  //       "api_base_url": "https://speedtaxi.org/api/"
-  //
-  //     }
-  // );
   runApp(const CustomerMainPage());
 }
 
@@ -120,7 +112,7 @@ class _CustomerMainPageState extends State<CustomerMainPage> {
   @override
   void initState() {
     super.initState();
-    initAppDependencies();
+    // initAppDependencies();
   }
 
   Future<void> initAppDependencies() async {

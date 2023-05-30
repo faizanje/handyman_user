@@ -26,7 +26,7 @@ class DeleteAccountConfirmationDialog extends StatelessWidget {
                       AppLocalizations.of(context)!.deletingYourAccont,
                       style: kTitleStyle.copyWith(
                         color: Theme.of(context).primaryColor,
-                        fontSize: 20,
+                        fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -44,7 +44,7 @@ class DeleteAccountConfirmationDialog extends StatelessWidget {
                   children: [
                     SizedBox(height: 10),
                     Text(
-                      AppLocalizations.of(context)!.deleteAccount,
+                      "Delete account",
                       style: kTitleStyle.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,
@@ -56,8 +56,9 @@ class DeleteAccountConfirmationDialog extends StatelessWidget {
                           horizontal: Dimensions.PADDING_SIZE_LARGE,
                           vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                       child: Text(
-                        AppLocalizations.of(context)!
-                            .reallyWantDeleteAccontDataWillBeLost,
+                        'Do you really want to delete your account? Your data will be permanently lost.',
+                        // AppLocalizations.of(context)!
+                        //     .reallyWantDeleteAccontDataWillBeLost,
                         style: kSubtitleStyle.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontSize: 17,
@@ -89,7 +90,8 @@ class DeleteAccountConfirmationDialog extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  AppLocalizations.of(context)!.yes,
+                                  "Yes",
+                                  // AppLocalizations.of(context)!.yes,
                                   style: rubikBold.copyWith(
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -114,7 +116,8 @@ class DeleteAccountConfirmationDialog extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  AppLocalizations.of(context)!.no,
+                                  'No',
+                                  // AppLocalizations.of(context)!.no,
                                   style: rubikBold.copyWith(
                                     color:
                                         Theme.of(context).colorScheme.secondary,

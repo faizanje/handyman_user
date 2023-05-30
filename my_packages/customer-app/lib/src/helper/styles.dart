@@ -45,7 +45,7 @@ const khulaBold = TextStyle(
 );
 const khulaSemiBold = TextStyle(
   color: Colors.black,
-  fontFamily: 'Uber',
+  fontFamily: 'ClanOT-Medium',
   fontWeight: FontWeight.w600,
   fontSize: Dimensions.FONT_SIZE_DEFAULT,
 );

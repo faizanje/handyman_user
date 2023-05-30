@@ -1,4 +1,5 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+import 'package:driver_customer_app/src/views/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -89,7 +90,9 @@ class SplashScreenState extends StateMVC<SplashScreen> {
       onWillPop: () async {
         return false;
       },
-      child: Scaffold(
+      child:
+      // HomeScreen()
+      Scaffold(
         body: Stack(
           children: [
             Container(

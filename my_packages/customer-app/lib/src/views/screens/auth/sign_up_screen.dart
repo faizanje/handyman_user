@@ -1,3 +1,4 @@
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
@@ -87,18 +88,18 @@ class SignupScreenState extends StateMVC<SignupScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: MyColor.primaryColor,
         title: Text(
           AppLocalizations.of(context)!.registration,
           style: khulaSemiBold.copyWith(
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.white,
               fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.close,
-            color: Theme.of(context).primaryColor,
+            color: Colors.white,
           ),
           onPressed: () async {
             await showQuitRegisterDialog();
@@ -123,7 +124,7 @@ class SignupScreenState extends StateMVC<SignupScreen> {
                     Text(
                       AppLocalizations.of(context)!.letsStartWithLogin,
                       style: kTitleStyle.copyWith(
-                        color: Theme.of(context).primaryColor,
+                        color: MyColor.primaryColor,
                         fontSize: Dimensions.PADDING_SIZE_EXTRA_LARGE,
                       ),
                       textAlign: TextAlign.center,
@@ -349,8 +350,8 @@ class SignupScreenState extends StateMVC<SignupScreen> {
                               blurRadius: 7,
                               offset: const Offset(0, 1)),
                         ],
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(2),
+                        color: MyColor.primaryColor,
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: TextButton(
                         style: TextButton.styleFrom(
@@ -444,7 +445,8 @@ class SignupScreenState extends StateMVC<SignupScreen> {
                       Text(
                         AppLocalizations.of(context)!.signIn,
                         style: poppinsRegular.copyWith(
-                          color: Colors.lightBlue,
+                          color: MyColor.primaryColor,
+                          fontWeight: FontWeight.w500
                         ),
                       )
                     ],

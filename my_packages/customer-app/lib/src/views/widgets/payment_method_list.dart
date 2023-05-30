@@ -1,6 +1,7 @@
 import 'package:driver_customer_app/src/helper/dimensions.dart';
 import 'package:driver_customer_app/src/helper/assets.dart';
 import 'package:driver_customer_app/src/models/payment_gateway_enum.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,8 +23,14 @@ class PaymentMethodListWidget extends StatelessWidget {
     bool isSelected = selectedPaymentMethod?.id == paymentMethod.id;
     return InkWell(
       onTap: () {
-        if (onSelectedPaymentChanged != null) {
+        if (isSelected) {
           onSelectedPaymentChanged!(paymentMethod);
+        }
+        else{
+
+       print(selectedPaymentMethod?.name);
+
+
         }
       },
       child: Container(
@@ -53,7 +60,7 @@ class PaymentMethodListWidget extends StatelessWidget {
                   fontSize: Dimensions.FONT_SIZE_LARGE,
                   color: isSelected
                       ? Theme.of(context).scaffoldBackgroundColor
-                      : Theme.of(context).primaryColor,
+                      : MyColor.primaryColor,
                 ),
               ),
             ),
@@ -74,7 +81,8 @@ class PaymentMethodListWidget extends StatelessWidget {
               bottom: Dimensions.PADDING_SIZE_DEFAULT,
             ),
             child: Text(
-              AppLocalizations.of(context)!.selectPaymentMethod,
+            'Select the payment method',
+              // AppLocalizations.of(context)!.selectPaymentMethod,
               style: kSubtitleStyle,
               textAlign: TextAlign.center,
             ),

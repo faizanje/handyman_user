@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -64,12 +65,12 @@ class RecentRidesScreenState extends StateMVC<RecentRidesScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          backgroundColor: Theme.of(context).highlightColor,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: MyColor.primaryColor,
           title: Text(
             AppLocalizations.of(context)!.recentRides,
             style: khulaSemiBold.copyWith(
-                color: Theme.of(context).primaryColor,
+                color: Colors.white,
                 fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
           ),
           elevation: 1,
@@ -87,7 +88,7 @@ class RecentRidesScreenState extends StateMVC<RecentRidesScreen> {
               '/Home',
             );
           },
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: MyColor.primaryColor,
           child: Icon(
             FontAwesomeIcons.plus,
             color: Theme.of(context).highlightColor,

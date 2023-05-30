@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,7 +122,7 @@ class _ProfileImageEditState extends StateMVC<ProfileImageEdit> {
           width: 100,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Color(0xFFD1D5DA), width: 2)),
+              border: Border.all(color: MyColor.primaryColor, width: 2)),
           child: (loadingImage)
               ? TextButton(
                   onPressed: () => {},
@@ -145,9 +146,10 @@ class _ProfileImageEditState extends StateMVC<ProfileImageEdit> {
                         )
                       : Image.asset(
                           Assets.placeholderUser,
-                          color: Theme.of(context).primaryColor,
+                          color: MyColor.primaryColor.withOpacity(0.3),
                           height: 100,
                           width: 100,
+
                           fit: BoxFit.scaleDown,
                         ),
                 ),
@@ -165,7 +167,7 @@ class _ProfileImageEditState extends StateMVC<ProfileImageEdit> {
               AppLocalizations.of(context)!.updatePhoto,
               textAlign: TextAlign.center,
               style: poppinsSemiBold.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
+                 color: MyColor.primaryColor,
               ),
             ),
             itemBuilder: (context) => [

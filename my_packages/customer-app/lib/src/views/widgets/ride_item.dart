@@ -49,8 +49,9 @@ class _RideItemWidgetState extends State<RideItemWidget> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
-                      blurRadius: 5,
+                      color: Theme.of(context).primaryColor.withOpacity(0.2),
+                      blurRadius: 9,
+                      offset: Offset(0.1,0.1),
                     )
                   ],
                   borderRadius: BorderRadius.circular(2),
@@ -311,8 +312,8 @@ class _RideItemWidgetState extends State<RideItemWidget> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: widget.ride.finalized
-                  ? Colors.redAccent
-                  : Theme.of(context).primaryColor),
+                  ? Colors.green
+                  : Colors.redAccent),
           alignment: AlignmentDirectional.center,
           child: Text(
             StatusEnumHelper.description(widget.ride.rideStatus, context),
