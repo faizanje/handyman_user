@@ -24,6 +24,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../favourite_provider_screen.dart';
+import 'package:driver_customer_app/src/controllers/user_controller.dart' as customer_user_controller;
 
 class ProfileFragment extends StatefulWidget {
   @override
@@ -341,7 +342,11 @@ class ProfileFragmentState extends State<ProfileFragment> {
                       64.height,
                       TextButton(
                         child: Text(language.logout, style: boldTextStyle(color: primaryColor, size: 16)),
-                        onPressed: () {
+                        onPressed: () async {
+
+                          final customerUserController = customer_user_controller.UserController();
+                         await customerUserController.doLogout();
+
                           logout(context);
                         },
                       ).center(),

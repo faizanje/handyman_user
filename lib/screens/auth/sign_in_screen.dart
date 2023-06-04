@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:driver_customer_app/src/controllers/user_controller.dart' as customer_user_controller;
+import 'package:driver_customer_app/src/repositories/user_repository.dart' as customer_user;
 
 class SignInScreen extends StatefulWidget {
   final bool? isFromDashboard;
@@ -44,9 +46,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bool isRemember = true;
 
+
   @override
   void initState() {
     super.initState();
+
     init();
   }
 
@@ -101,7 +105,11 @@ class _SignInScreenState extends State<SignInScreen> {
         'player_id': getStringAsync(PLAYERID),
       };
 
+
+      log("Login email ${emailCont.text}");
+      log("Login pass ${passwordCont.text}");
       log("Login Request $request");
+
 
       appStore.setLoading(true);
 
@@ -118,10 +126,22 @@ class _SignInScreenState extends State<SignInScreen> {
               .signInWithEmailPassword(
                   email: loginResponse.userData!.email.validate())
               .then((value) async {
+
+            log("============================= TAXI LOGIN Start =============================");
+            final customer = customer_user_controller.UserController();
+            final user = customer_user.UserRepository;
+
+            await customer.doLoadUser();
+            await  customer.doLogin(emailCont.text.trim(), passwordCont.text.trim(), true);
+            log("============================= TAXI LOGIN END =============================");
+
             log("============================= FIREBASE LOGIN SUCCESSFUL =============================");
             loginResponse.userData!.uid = value.uid.validate();
             if (loginResponse.userData != null)
+
               await saveUserData(loginResponse.userData!);
+
+
 
             /// Saving Player ID to Firebase
             userService
@@ -287,7 +307,7 @@ class _SignInScreenState extends State<SignInScreen> {
             decoration:
                 inputDecoration(context, labelText: language.hintPasswordTxt),
             autoFillHints: [AutofillHints.password],
-            onFieldSubmitted: (s) {
+            onFieldSubmitted: (s) async {
               loginUsers();
             },
           ),
@@ -341,6 +361,9 @@ class _SignInScreenState extends State<SignInScreen> {
           textColor: Colors.white,
           width: context.width() - context.navigationBarHeight,
           onTap: () {
+
+
+
             loginUsers();
           },
         ),

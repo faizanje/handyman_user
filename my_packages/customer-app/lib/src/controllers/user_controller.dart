@@ -25,7 +25,9 @@ class UserController extends ControllerMVC {
   }
 
   Future<void> doLogin(String email, String password, bool rememberMe) async {
+    print("dologin called");
     await login(email, password, rememberMe).then((User user) async {
+
       await userRepository.setUser(user);
       try {
         await NotificationRepository().updateFcmToken(user);

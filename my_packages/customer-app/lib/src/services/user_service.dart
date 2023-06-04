@@ -8,6 +8,7 @@ import '../helper/helper.dart';
 import '../models/user.dart';
 
 Future<User> login(String email, String password, bool rememberMe) async {
+  print("login api called");
   var response = await http
       .post(Helper.getUri('login', addApiToken: false),
           headers: <String, String>{
@@ -18,7 +19,10 @@ Future<User> login(String email, String password, bool rememberMe) async {
       .timeout(const Duration(seconds: 15));
 
   if (response.statusCode == HttpStatus.ok) {
+    print("CUSTOMER SUCCEEFULLY LOGIN");
     return User.fromJSON(jsonDecode(response.body)['data']);
+
+
   } else {
     print(CustomTrace(StackTrace.current, message: response.body));
     throw Exception(response.statusCode);

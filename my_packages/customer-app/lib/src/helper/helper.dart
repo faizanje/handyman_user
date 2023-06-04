@@ -16,13 +16,16 @@ extension StringExtension on String {
 class Helper {
   static Uri getUri(String path, {bool addApiToken = true, Map<String, dynamic> queryParam = const {}}) {
     Map<String, dynamic> _queryParameters = {};
+    print("GET URI CURRENT USER "+ currentUser.value.token.toString());
     if (addApiToken) {
+
       _queryParameters.addAll({"api_token": currentUser.value.token});
     }
     _queryParameters.addAll(queryParam);
 
     if (kDebugMode) {
       print('appConfig: ${GlobalConfiguration().appConfig}');
+      print("GET URI CURRENT USER "+ currentUser.value.token);
       print(Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
           .replace(queryParameters: _queryParameters));
     }
