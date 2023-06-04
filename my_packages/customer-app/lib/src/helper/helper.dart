@@ -1,3 +1,4 @@
+import 'package:driver_customer_app/utils/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -16,21 +17,20 @@ extension StringExtension on String {
 class Helper {
   static Uri getUri(String path, {bool addApiToken = true, Map<String, dynamic> queryParam = const {}}) {
     Map<String, dynamic> _queryParameters = {};
-    print("GET URI CURRENT USER "+ currentUser.value.token.toString());
+    print("GET URI CURRENT USER " + currentUser.value.token.toString());
     if (addApiToken) {
-
       _queryParameters.addAll({"api_token": currentUser.value.token});
     }
     _queryParameters.addAll(queryParam);
 
     if (kDebugMode) {
-      print('appConfig: ${GlobalConfiguration().appConfig}');
-      print("GET URI CURRENT USER "+ currentUser.value.token);
-      print(Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
-          .replace(queryParameters: _queryParameters));
+      // print('appConfig: ${GlobalConfiguration().appConfig}');
+      // print("GET URI CURRENT USER "+ currentUser.value.token);
+      // print(Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
+      //     .replace(queryParameters: _queryParameters));
     }
-    return Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
-        .replace(queryParameters: _queryParameters);
+    // return Uri.parse('${GlobalConfiguration().getValue('api_base_url')}$path')
+    return Uri.parse('${api_base_url}$path').replace(queryParameters: _queryParameters);
   }
 
   static double StringTodouble(String value) {
