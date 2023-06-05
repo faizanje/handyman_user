@@ -19,6 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:driver_customer_app/src/services/user_service.dart' as customer_user_service;
@@ -65,7 +66,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void init() async {
     if (widget.phoneNumber != null) {
       selectedCountry = Country.parse(widget.countryCode.validate(value: selectedCountry.countryCode));
-
       mobileCont.text = widget.phoneNumber != null ? widget.phoneNumber.toString() : "";
       passwordCont.text = widget.phoneNumber != null ? widget.phoneNumber.toString() : "";
       userNameCont.text = widget.phoneNumber != null ? widget.phoneNumber.toString() : "";
@@ -86,7 +86,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     hideKeyboard(context);
 
     if (appStore.isLoading) return;
-
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -114,8 +113,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           /// After successful entry in the mysql database it will login into firebase.
           firebaseSignup(registerResponse: registerResponse);
+          final box = GetStorage();
+          box.write("isLogedIn", true);
         }).catchError((e) {
+
           appStore.setLoading(false);
+
 
           toast(e.toString());
         });
@@ -143,7 +146,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             if (res.userData != null) await saveUserData(res.userData!);
 
-            DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AppSelectorPage(),
+                  // builder: (context) => CustomerAppSplash(),
+                ),
+            );
+
+            // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
 
             appStore.setLoading(false);
           }

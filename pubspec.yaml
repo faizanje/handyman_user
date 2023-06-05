@@ -77,6 +77,7 @@ dependencies:
   driver_customer_app:
     path: my_packages/customer-app
   package_info_plus_web: ^2.0.0
+  get_storage: ^2.1.1
 
 
 dev_dependencies:

@@ -4,6 +4,7 @@ import 'package:booking_system_flutter/locale/language_en.dart';
 import 'package:booking_system_flutter/locale/languages.dart';
 import 'package:booking_system_flutter/model/material_you_model.dart';
 import 'package:booking_system_flutter/model/remote_config_data_model.dart';
+import 'package:booking_system_flutter/screens/auth/sign_up_screen.dart';
 import 'package:booking_system_flutter/screens/splash_screen.dart';
 import 'package:booking_system_flutter/services/auth_services.dart';
 import 'package:booking_system_flutter/services/chat_services.dart';
@@ -20,6 +21,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'model/booking_data_model.dart';
@@ -52,6 +54,7 @@ List<BookingStatusResponse>? cachedBookingStatusDropdown;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GetStorage.init();
 
   passwordLengthGlobal = 6;
   appButtonBackgroundColorGlobal = primaryColor;
@@ -142,128 +145,167 @@ class _MainAppSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
+        body: Column(
           children: [
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CustomerMainPage(),
-                      // builder: (context) => CustomerAppSplash(),
-                    ));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(90),
-                      offset: Offset(1.1, 1.5),
-                      blurRadius: 1.9,
-                      blurStyle: BlurStyle.outer,
+            SizedBox(height: 20,),
+
+            Image.asset("assets/images/walkthrough_3.png",
+            height: 160,),
+
+            SizedBox(height: 60,),
+
+            Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: [
+                  InkWell(
+                    onTap: () {
+                       final user = GetStorage();
+                       final isLogedIn = user.read("isLogedIn");
+                       print("USER LOGIN " + isLogedIn.toString());
+
+                       if(isLogedIn){
+
+                         Navigator.push(
+                             context,
+                             MaterialPageRoute(
+                               builder: (context) => CustomerMainPage(),
+                             ),
+                         );
+                       }
+                       else{
+                         toast("Please create account first");
+                       }
+
+
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: appButtonBackgroundColorGlobal,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(90),
+                            offset: Offset(1.1, 1.5),
+                            blurRadius: 1.9,
+                            
+                            blurStyle: BlurStyle.outer,
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Spacer(),
+                            Image.asset(
+                              'assets/images/taxi-driver(1).png',
+                              width: 55,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              "Taxi Service",
+
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.white),
+                            ),
+                            Spacer(),
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/taxi-driver(1).png',
-                        width: 55,
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Text(
-                        "Taxi Service",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                      )
-                    ],
                   ),
-                ),
+
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyApp(),
+                          ));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: appButtonBackgroundColorGlobal,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(90),
+                            offset: Offset(1.1, 1.5),
+                            blurRadius: 1.9,
+                            blurStyle: BlurStyle.outer,
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Spacer(),
+                            Image.asset(
+                              'assets/images/man.png',
+                              width: 55,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Handyman Service",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: white
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
               ),
             ),
 
-            InkWell(
+            AppButton(
+              text: language.signUp,
+              color: primaryColor,
+              textColor: Colors.white,
+              width: context.width() - context.navigationBarHeight,
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyApp(),
-                    ));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(90),
-                      offset: Offset(1.1, 1.5),
-                      blurRadius: 1.9,
-                      blurStyle: BlurStyle.outer,
+                      builder: (context) => SignUpScreen(),
+                      // builder: (context) => CustomerAppSplash(),
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/images/man.png',
-                        width: 55,
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Expanded(
-                        child: Text(
-                          "Handyman Service",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                );
+
+              },
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => MyApp(),
-            //         ));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(16.0),
-            //     child: Text('Handyman User'),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 8,
-            // ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => CustomerMainPage(),
-            //         ));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(16.0),
-            //     child: Text('Customer'),
-            //   ),
-            // ),
+            AppButton(
+              text: language.signIn,
+              color: primaryColor,
+              textColor: Colors.white,
+              width: context.width() - context.navigationBarHeight,
+              onTap: () {
+
+
+
+              },
+            ),
+            SizedBox(height: 60,),
+
           ],
         ),
       ),

@@ -32,6 +32,7 @@ import 'package:booking_system_flutter/utils/constant.dart';
 import 'package:booking_system_flutter/utils/images.dart';
 import 'package:booking_system_flutter/utils/model_keys.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
@@ -167,7 +168,14 @@ Future<void> logout(BuildContext context) async {
                     appStore.setLoading(true);
 
                     logoutApi().then((value) async {
-                      //
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AppSelectorPage(),
+                          // builder: (context) => CustomerAppSplash(),
+                        ),
+                      );
+
                     }).catchError((e) {
                       log(e.toString());
                     });
@@ -175,7 +183,12 @@ Future<void> logout(BuildContext context) async {
                     await clearPreferences();
 
                     appStore.setLoading(false);
-                    DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+
+                    final user = GetStorage();
+                    user.write("isLoedIn", false);
+
+
+                    // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
                   }
                 },
               ).expand(),
