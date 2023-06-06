@@ -118,8 +118,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }).catchError((e) {
 
           appStore.setLoading(false);
-
-
           toast(e.toString());
         });
       }
@@ -130,13 +128,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     await authService.signUpWithEmailPassword(context, userData: registerResponse.userData!).then((value) async {
       if (value) {
         /// If Registered then check for the type of  user to directly login or send to signup page.
-
         var request = {
           "email": registerResponse.userData!.email.validate(),
           'password': registerResponse.userData!.password.validate(),
           'player_id': appStore.playerId,
         };
-
         /// Calling Login API
 
         await loginUser(request).then((res) async {
@@ -145,14 +141,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
             toast(language.loginSuccessfully, print: true);
 
             if (res.userData != null) await saveUserData(res.userData!);
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AppSelectorPage(),
-                  // builder: (context) => CustomerAppSplash(),
-                ),
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AppSelectorPage()),
+              ModalRoute.withName('/'),
             );
+
+            //
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => AppSelectorPage(),
+            //       // builder: (context) => CustomerAppSplash(),
+            //     ),
+            // );
 
             // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
 
@@ -400,7 +403,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               style: boldTextStyle(color: primaryColor, size: 14),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  finish(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignInScreen(),
+
+
+                    ),
+                  );
+                  // finish(context);
+                  // finish(context);
                 },
             ),
           ],

@@ -4,7 +4,10 @@ import 'package:booking_system_flutter/locale/language_en.dart';
 import 'package:booking_system_flutter/locale/languages.dart';
 import 'package:booking_system_flutter/model/material_you_model.dart';
 import 'package:booking_system_flutter/model/remote_config_data_model.dart';
+import 'package:booking_system_flutter/screens/auth/sign_in_screen.dart';
 import 'package:booking_system_flutter/screens/auth/sign_up_screen.dart';
+import 'package:booking_system_flutter/screens/dashboard/dashboard_screen.dart';
+import 'package:booking_system_flutter/screens/dashboard/fragment/profile_fragment.dart';
 import 'package:booking_system_flutter/screens/splash_screen.dart';
 import 'package:booking_system_flutter/services/auth_services.dart';
 import 'package:booking_system_flutter/services/chat_services.dart';
@@ -178,7 +181,8 @@ class _MainAppSelector extends StatelessWidget {
                          );
                        }
                        else{
-                         toast("Please create account first");
+
+                         toast("Please create or SignIn account first!");
                        }
 
 
@@ -224,11 +228,23 @@ class _MainAppSelector extends StatelessWidget {
 
                   InkWell(
                     onTap: () {
-                      Navigator.push(
+                      final user = GetStorage();
+                      final isLogedIn = user.read("isLogedIn");
+                      print("USER LOGIN " + isLogedIn.toString());
+
+                      if(isLogedIn){
+
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => MyApp(),
-                          ));
+                          ),
+                        );
+                      }
+                      else{
+
+                        toast("Please create or SignIn account first!");
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -277,32 +293,44 @@ class _MainAppSelector extends StatelessWidget {
               ),
             ),
 
-            AppButton(
-              text: language.signUp,
-              color: primaryColor,
-              textColor: Colors.white,
-              width: context.width() - context.navigationBarHeight,
-              onTap: () {
-                Navigator.push(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:16.0,vertical: 8),
+              child: AppButton(
+                text: language.signUp,
+                color: primaryColor,
+                textColor: Colors.white,
+                width: context.width() - context.navigationBarHeight,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUpScreen(),
+                        // builder: (context) => CustomerAppSplash(),
+                      ),
+                  );
+
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:16.0,vertical: 0),
+              child: AppButton(
+                text: language.profile,
+                color: primaryColor,
+                textColor: Colors.white,
+                width: context.width() - context.navigationBarHeight,
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
+                      builder: (context) => ProfileFragment(),
                       // builder: (context) => CustomerAppSplash(),
                     ),
-                );
-
-              },
-            ),
-            AppButton(
-              text: language.signIn,
-              color: primaryColor,
-              textColor: Colors.white,
-              width: context.width() - context.navigationBarHeight,
-              onTap: () {
+                  );
 
 
-
-              },
+                },
+              ),
             ),
             SizedBox(height: 60,),
 
@@ -340,7 +368,7 @@ class _MyAppState extends State<MyApp> {
               builder: (_) => MaterialApp(
                 debugShowCheckedModeBanner: false,
                 navigatorKey: navigatorKey,
-                home: SplashScreen(),
+                home: DashboardScreen(),
                 theme: AppTheme.lightTheme(color: snap.data),
                 darkTheme: AppTheme.darkTheme(color: snap.data),
                 themeMode: appStore.isDarkMode ? ThemeMode.dark : ThemeMode.light,

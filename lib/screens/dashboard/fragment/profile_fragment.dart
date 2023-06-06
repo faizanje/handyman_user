@@ -17,6 +17,7 @@ import 'package:booking_system_flutter/utils/configs.dart';
 import 'package:booking_system_flutter/utils/constant.dart';
 import 'package:booking_system_flutter/utils/images.dart';
 import 'package:booking_system_flutter/utils/string_extensions.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -72,7 +73,7 @@ class ProfileFragmentState extends State<ProfileFragment> {
         language.profile,
         textColor: white,
         elevation: 0.0,
-        color: context.primaryColor,
+        color: MyColor.primaryColor,
         showBack: false,
         actions: [
           IconButton(
@@ -196,17 +197,17 @@ class ProfileFragmentState extends State<ProfileFragment> {
                             });
                           },
                         ),
-                        if (isLoginTypeUser)
-                          SettingItemWidget(
-                            leading: ic_lock.iconImage(size: SETTING_ICON_SIZE),
-                            title: language.changePassword,
-                            trailing: trailing,
-                            onTap: () {
-                              doIfLoggedIn(context, () {
-                                ChangePasswordScreen().launch(context);
-                              });
-                            },
-                          ),
+                        // if (isLoginTypeUser)
+                        //   SettingItemWidget(
+                        //     leading: ic_lock.iconImage(size: SETTING_ICON_SIZE),
+                        //     title: language.changePassword,
+                        //     trailing: trailing,
+                        //     onTap: () {
+                        //       doIfLoggedIn(context, () {
+                        //         ChangePasswordScreen().launch(context);
+                        //       });
+                        //     },
+                        //   ),
                         SettingItemWidget(
                           leading: ic_document.iconImage(size: SETTING_ICON_SIZE),
                           title: language.blogs,
@@ -305,40 +306,47 @@ class ProfileFragmentState extends State<ProfileFragment> {
                     headingDecoration: BoxDecoration(color: redColor.withOpacity(0.08)),
                     divider: Offstage(),
                     items: [
-                      8.height,
-                      SettingItemWidget(
-                        leading: ic_delete_account.iconImage(size: SETTING_ICON_SIZE),
-                        paddingBeforeTrailing: 4,
-                        title: language.lblDeleteAccount,
-                        onTap: () {
-                          showConfirmDialogCustom(
-                            context,
-                            negativeText: language.lblCancel,
-                            positiveText: language.lblDelete,
-                            onAccept: (_) {
-                              ifNotTester(() {
-                                appStore.setLoading(true);
-
-                                deleteAccountCompletely().then((value) async {
-                                  await userService.removeDocument(appStore.uid);
-                                  await userService.deleteUser();
-                                  await clearPreferences();
-                                  appStore.setLoading(false);
-
-                                  toast(value.message);
-
-                                  push(DashboardScreen(), isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
-                                }).catchError((e) {
-                                  appStore.setLoading(false);
-                                  toast(e.toString());
-                                });
-                              });
-                            },
-                            dialogType: DialogType.DELETE,
-                            title: language.lblDeleteAccountConformation,
-                          );
-                        },
-                      ).paddingOnly(left: 4),
+                      // 8.height,
+                      // SettingItemWidget(
+                      //   // leading: null,
+                      //   // title: "",
+                      //   leading: ic_delete_account.iconImage(size: SETTING_ICON_SIZE),
+                      //   // paddingBeforeTrailing: 4,
+                      //   title: language.lblDeleteAccount,
+                      //   onTap: () {
+                      //     showConfirmDialogCustom(
+                      //       context,
+                      //       negativeText: language.lblCancel,
+                      //       positiveText: language.lblDelete,
+                      //       onAccept: (_) {
+                      //         ifNotTester(() {
+                      //           appStore.setLoading(true);
+                      //           final customerUserController = customer_user_controller.UserController();
+                      //
+                      //
+                      //           deleteAccountCompletely().then((value) async {
+                      //             await userService.removeDocument(appStore.uid);
+                      //             await userService.deleteUser();
+                      //             await clearPreferences();
+                      //             await customerUserController.doLoadUser();
+                      //             await customerUserController.doDeleteAccount();
+                      //             await customerUserController.doLogout();
+                      //             appStore.setLoading(false);
+                      //
+                      //             toast(value.message);
+                      //
+                      //             push(DashboardScreen(), isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                      //           }).catchError((e) {
+                      //             appStore.setLoading(false);
+                      //             toast(e.toString());
+                      //           });
+                      //         });
+                      //       },
+                      //       dialogType: DialogType.DELETE,
+                      //       title: language.lblDeleteAccountConformation,
+                      //     );
+                      //   },
+                      // ).paddingOnly(left: 4),
                       64.height,
                       TextButton(
                         child: Text(language.logout, style: boldTextStyle(color: primaryColor, size: 16)),
@@ -352,6 +360,58 @@ class ProfileFragmentState extends State<ProfileFragment> {
                       ).center(),
                     ],
                   ).visible(appStore.isLoggedIn),
+                  // SettingSection(
+                  //   title: Text(language.lblDangerZone.toUpperCase(), style: boldTextStyle(color: redColor)),
+                  //   headingDecoration: BoxDecoration(color: redColor.withOpacity(0.08)),
+                  //   divider: Offstage(),
+                  //   items: [
+                  //     8.height,
+                  //     SettingItemWidget(
+                  //       leading: ic_delete_account.iconImage(size: SETTING_ICON_SIZE),
+                  //       paddingBeforeTrailing: 4,
+                  //       title: language.lblDeleteAccount,
+                  //       onTap: () {
+                  //         showConfirmDialogCustom(
+                  //           context,
+                  //           negativeText: language.lblCancel,
+                  //           positiveText: language.lblDelete,
+                  //           onAccept: (_) {
+                  //             ifNotTester(() {
+                  //               appStore.setLoading(true);
+                  //
+                  //               deleteAccountCompletely().then((value) async {
+                  //                 await userService.removeDocument(appStore.uid);
+                  //                 await userService.deleteUser();
+                  //                 await clearPreferences();
+                  //                 appStore.setLoading(false);
+                  //
+                  //                 toast(value.message);
+                  //
+                  //                 push(DashboardScreen(), isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+                  //               }).catchError((e) {
+                  //                 appStore.setLoading(false);
+                  //                 toast(e.toString());
+                  //               });
+                  //             });
+                  //           },
+                  //           dialogType: DialogType.DELETE,
+                  //           title: language.lblDeleteAccountConformation,
+                  //         );
+                  //       },
+                  //     ).paddingOnly(left: 4),
+                  //     64.height,
+                  //     TextButton(
+                  //       child: Text(language.logout, style: boldTextStyle(color: primaryColor, size: 16)),
+                  //       onPressed: () async {
+                  //
+                  //         final customerUserController = customer_user_controller.UserController();
+                  //        await customerUserController.doLogout();
+                  //
+                  //         logout(context);
+                  //       },
+                  //     ).center(),
+                  //   ],
+                  // ).visible(appStore.isLoggedIn),
                   30.height.visible(!appStore.isLoggedIn),
                   SnapHelperWidget<PackageInfoData>(
                     future: getPackageInfo(),

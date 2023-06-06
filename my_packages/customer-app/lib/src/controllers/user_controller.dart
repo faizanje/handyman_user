@@ -88,6 +88,9 @@ class UserController extends ControllerMVC {
   }
 
   Future<void> doProfileUpdate(String name, String email, String phone, {String? password}) async {
+    print(name);
+    print(email);
+    print(phone);
     await profileUpdate(name, email, phone, password: password).then((User user) async {
       await userRepository.setUser(user);
       try {
@@ -102,10 +105,13 @@ class UserController extends ControllerMVC {
   }
 
   Future<void> doProfilePictureUpload(File file) async {
+    print(file.path);
     await profilePictureUpload(file).then((User user) async {
       await userRepository.setUser(user);
       setState(() {
+        print(file.path);
         currentUser;
+        print(currentUser);
       });
     }).catchError((error) {
       throw error;

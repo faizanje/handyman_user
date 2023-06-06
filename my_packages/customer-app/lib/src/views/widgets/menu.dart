@@ -108,7 +108,7 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                     style: rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
                   ),
                 ),
-                if (currentUser.value.auth)
+                // if (currentUser.value.auth)
                   Column(
                     children: [
                       Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
@@ -128,117 +128,117 @@ class MenuWidgetState extends StateMVC<MenuWidget> {
                               rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
                         ),
                       ),
-                      Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
-                      ListTile(
-                        horizontalTitleGap: 0,
-                        onTap: () {
-                          if (widget.onSwitchTab != null) {
-                            widget.onSwitchTab!('Profile');
-                          } else {
-                            Navigator.of(context).pushReplacementNamed('/Profile');
-                          }
-                        },
-                        leading: Icon(FontAwesomeIcons.userPen, color: MyColor.primaryColor),
-                        title: Text(
-                          AppLocalizations.of(context)!.profile,
-                          style:
-                              rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
-                        ),
-                      ),
-                      Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
-                      ListTile(
-                        horizontalTitleGap: 0,
-                        onTap: () async {
-                          // await _userCon.doLogout();
-                          // Navigator.pushNamedAndRemoveUntil(context, '/Login', (route) => false);
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    title: const Text('Logout'),
-                                    content: const Text(
-                                      'Are you sure you want to logout?',
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          textStyle: Theme.of(context).textTheme.labelLarge,
-                                        ),
-                                        child: const Text('Yes'),
-                                        onPressed: () async {
-                                          // await _userCon.doLogout();
-                                          // Navigator.pushNamedAndRemoveUntil(context,'/Login', (route) => false);
-
-                                          //
-                                          // Navigator.pushAndRemoveUntil(context,
-                                          //     MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-                                          //         (Route<dynamic> route) => route is HomeScreen
-                                          // );
-
-                                          await _userCon.doLogout();
-                                          Navigator.pushNamedAndRemoveUntil(context, '/Login', (route) => false);
-
-                                          // setState(() { });
-
-                                          // Navigator.pushNamedAndRemoveUntil(context,'/Login', (Route<dynamic> route) => false);
-                                          // Navigator.of(context).pop();
-                                          // Navigator.pushAndRemoveUntil(
-                                          //     context, LoginScreen(), (route)=>false);
-                                        },
-                                      ),
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          textStyle: Theme.of(context).textTheme.labelLarge,
-                                        ),
-                                        child: const Text('No'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  )
-
-                              //     SignOutConfirmationDialog(
-                              //         onConfirmed: () async {
-                              //       // await _userCon.doLogout();
-                              //       // Navigator.pushNamedAndRemoveUntil(
-                              //       //     context, '/Login', (route) => false);
-                              //       // setState(() {});
-                              //     },
-                              //
-                              // )
-                              );
-                        },
-                        leading: Icon(Icons.logout, color: MyColor.primaryColor),
-                        title: Text(
-                          AppLocalizations.of(context)!.logout,
-                          style:
-                              rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
-                        ),
-                      ),
+                      // Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
+                      // ListTile(
+                      //   horizontalTitleGap: 0,
+                      //   onTap: () {
+                      //     if (widget.onSwitchTab != null) {
+                      //       widget.onSwitchTab!('Profile');
+                      //     } else {
+                      //       Navigator.of(context).pushReplacementNamed('/Profile');
+                      //     }
+                      //   },
+                      //   leading: Icon(FontAwesomeIcons.userPen, color: MyColor.primaryColor),
+                      //   title: Text(
+                      //     AppLocalizations.of(context)!.profile,
+                      //     style:
+                      //         rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
+                      //   ),
+                      // ),
+                      // Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
+                      // ListTile(
+                      //   horizontalTitleGap: 0,
+                      //   onTap: () async {
+                      //     // await _userCon.doLogout();
+                      //     // Navigator.pushNamedAndRemoveUntil(context, '/Login', (route) => false);
+                      //     showDialog(
+                      //         context: context,
+                      //         builder: (context) => AlertDialog(
+                      //               title: const Text('Logout'),
+                      //               content: const Text(
+                      //                 'Are you sure you want to logout?',
+                      //               ),
+                      //               actions: <Widget>[
+                      //                 TextButton(
+                      //                   style: TextButton.styleFrom(
+                      //                     textStyle: Theme.of(context).textTheme.labelLarge,
+                      //                   ),
+                      //                   child: const Text('Yes'),
+                      //                   onPressed: () async {
+                      //                     // await _userCon.doLogout();
+                      //                     // Navigator.pushNamedAndRemoveUntil(context,'/Login', (route) => false);
+                      //
+                      //                     //
+                      //                     // Navigator.pushAndRemoveUntil(context,
+                      //                     //     MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+                      //                     //         (Route<dynamic> route) => route is HomeScreen
+                      //                     // );
+                      //
+                      //                     await _userCon.doLogout();
+                      //                     Navigator.pushNamedAndRemoveUntil(context, '/Login', (route) => false);
+                      //
+                      //                     // setState(() { });
+                      //
+                      //                     // Navigator.pushNamedAndRemoveUntil(context,'/Login', (Route<dynamic> route) => false);
+                      //                     // Navigator.of(context).pop();
+                      //                     // Navigator.pushAndRemoveUntil(
+                      //                     //     context, LoginScreen(), (route)=>false);
+                      //                   },
+                      //                 ),
+                      //                 TextButton(
+                      //                   style: TextButton.styleFrom(
+                      //                     textStyle: Theme.of(context).textTheme.labelLarge,
+                      //                   ),
+                      //                   child: const Text('No'),
+                      //                   onPressed: () {
+                      //                     Navigator.of(context).pop();
+                      //                   },
+                      //                 ),
+                      //               ],
+                      //             )
+                      //
+                      //         //     SignOutConfirmationDialog(
+                      //         //         onConfirmed: () async {
+                      //         //       // await _userCon.doLogout();
+                      //         //       // Navigator.pushNamedAndRemoveUntil(
+                      //         //       //     context, '/Login', (route) => false);
+                      //         //       // setState(() {});
+                      //         //     },
+                      //         //
+                      //         // )
+                      //         );
+                      //   },
+                      //   leading: Icon(Icons.logout, color: MyColor.primaryColor),
+                      //   title: Text(
+                      //     AppLocalizations.of(context)!.logout,
+                      //     style:
+                      //         rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
+                      //   ),
+                      // ),
                     ],
                   )
-                else
-                  Column(
-                    children: [
-                      Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
-                      ListTile(
-                        horizontalTitleGap: 0,
-                        onTap: () {
-                          if (widget.onSwitchTab != null) {
-                            widget.onSwitchTab!('Login');
-                          } else {
-                            Navigator.of(context).pushReplacementNamed('/Login');
-                          }
-                        },
-                        leading: Icon(Icons.login, color: MyColor.primaryColor),
-                        title: Text(
-                          AppLocalizations.of(context)!.login,
-                          style:
-                              rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
-                        ),
-                      ),
-                    ],
-                  )
+                // else
+                //   Column(
+                //     children: [
+                //       Divider(color: Theme.of(context).colorScheme.secondary, height: 0),
+                //       ListTile(
+                //         horizontalTitleGap: 0,
+                //         onTap: () {
+                //           if (widget.onSwitchTab != null) {
+                //             widget.onSwitchTab!('Login');
+                //           } else {
+                //             Navigator.of(context).pushReplacementNamed('/Login');
+                //           }
+                //         },
+                //         leading: Icon(Icons.login, color: MyColor.primaryColor),
+                //         title: Text(
+                //           AppLocalizations.of(context)!.login,
+                //           style:
+                //               rubikMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: MyColor.primaryColor),
+                //         ),
+                //       ),
+                //     ],
+                //   )
               ],
             ),
           ),

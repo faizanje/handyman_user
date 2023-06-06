@@ -162,19 +162,15 @@ Future<void> logout(BuildContext context) async {
                 color: primaryColor,
                 elevation: 0,
                 onTap: () async {
+                  final box = GetStorage();
+                  box.write("isLogedIn", false);
                   finish(context);
 
                   if (await isNetworkAvailable()) {
                     appStore.setLoading(true);
 
                     logoutApi().then((value) async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AppSelectorPage(),
-                          // builder: (context) => CustomerAppSplash(),
-                        ),
-                      );
+                      appStore.setLoading(false);
 
                     }).catchError((e) {
                       log(e.toString());
@@ -184,8 +180,17 @@ Future<void> logout(BuildContext context) async {
 
                     appStore.setLoading(false);
 
-                    final user = GetStorage();
-                    user.write("isLoedIn", false);
+                    Navigator.pop(context);
+                    //
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => AppSelectorPage(),
+                    //     // builder: (context) => CustomerAppSplash(),
+                    //   ),
+                    // );
+
+
 
 
                     // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);

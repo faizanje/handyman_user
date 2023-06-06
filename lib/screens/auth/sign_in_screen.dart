@@ -14,10 +14,10 @@ import 'package:booking_system_flutter/utils/images.dart';
 import 'package:booking_system_flutter/utils/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:driver_customer_app/src/controllers/user_controller.dart' as customer_user_controller;
-import 'package:driver_customer_app/src/repositories/user_repository.dart' as customer_user;
 
 class SignInScreen extends StatefulWidget {
   final bool? isFromDashboard;
@@ -118,11 +118,12 @@ class _SignInScreenState extends State<SignInScreen> {
               .then((value) async {
             log("============================= TAXI LOGIN Start =============================");
             final customer = customer_user_controller.UserController();
-            final user = customer_user.UserRepository;
 
             await customer.doLoadUser();
             await customer.doLogin(emailCont.text.trim(), passwordCont.text.trim(), true);
             log("============================= TAXI LOGIN END =============================");
+             final box = GetStorage();
+             box.write("isLogedIn", true);
 
             log("============================= FIREBASE LOGIN SUCCESSFUL =============================");
             loginResponse.userData!.uid = value.uid.validate();
@@ -216,9 +217,17 @@ class _SignInScreenState extends State<SignInScreen> {
       if (widget.isFromDashboard.validate()) {
         setStatusBarColor(context.primaryColor);
       }
-      finish(context, true);
+      finish(context);
     } else {
-      DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
+
+      // Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AppSelectorPage()),
+          ModalRoute.withName('/'),
+      );
+      // DashboardScreen().launch(context, isNewTask: true, pageRouteAnimation: PageRouteAnimation.Fade);
     }
   }
 
@@ -305,21 +314,21 @@ class _SignInScreenState extends State<SignInScreen> {
                 setState(() {});
               },
             ),
-            TextButton(
-              onPressed: () {
-                showInDialog(
-                  context,
-                  contentPadding: EdgeInsets.zero,
-                  dialogAnimation: DialogAnimation.SLIDE_TOP_BOTTOM,
-                  builder: (_) => ForgotPasswordScreen(),
-                );
-              },
-              child: Text(
-                language.forgotPassword,
-                style: boldTextStyle(color: primaryColor, fontStyle: FontStyle.italic),
-                textAlign: TextAlign.right,
-              ),
-            ).flexible(),
+            // TextButton(
+            //   onPressed: () {
+            //     showInDialog(
+            //       context,
+            //       contentPadding: EdgeInsets.zero,
+            //       dialogAnimation: DialogAnimation.SLIDE_TOP_BOTTOM,
+            //       builder: (_) => ForgotPasswordScreen(),
+            //     );
+            //   },
+            //   child: Text(
+            //     language.forgotPassword,
+            //     style: boldTextStyle(color: primaryColor, fontStyle: FontStyle.italic),
+            //     textAlign: TextAlign.right,
+            //   ),
+            // ).flexible(),
           ],
         ),
         24.height,
@@ -504,7 +513,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 _buildTopWidget(),
                 _buildFormWidget(),
                 _buildRememberWidget(),
-                if (!getBoolAsync(HAS_IN_REVIEW)) _buildSocialWidget(),
+                // if (!getBoolAsync(HAS_IN_REVIEW)) _buildSocialWidget(),
                 30.height,
               ],
             ),

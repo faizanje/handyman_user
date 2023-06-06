@@ -17,12 +17,14 @@ import 'package:booking_system_flutter/utils/images.dart';
 import 'package:booking_system_flutter/utils/model_keys.dart';
 import 'package:booking_system_flutter/utils/string_extensions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:driver_customer_app/src/controllers/user_controller.dart' as customer_user_controller;
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -163,7 +165,13 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     multiPartRequest.fields[UserKeys.stateId] = stateId.toString();
     multiPartRequest.fields[UserKeys.cityId] = cityId.toString();
     multiPartRequest.fields[CommonKeys.address] = addressCont.text;
+    final customerUser = customer_user_controller.UserController();
+    customerUser.doLoadUser();
+    await customerUser.doProfileUpdate(fNameCont.text, emailCont.text, mobileCont.text,password: null);
     if (imageFile != null) {
+
+      await customerUser.doProfilePictureUpload(imageFile!);
+
       multiPartRequest.files.add(await MultipartFile.fromPath(UserKeys.profileImage, imageFile!.path));
     } else {
       Image.asset(ic_home, fit: BoxFit.cover);
@@ -197,6 +205,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         if (data != null) {
           if ((data as String).isJson()) {
             LoginResponse res = LoginResponse.fromJson(jsonDecode(data));
+
 
             saveUserData(res.userData!);
             finish(context);
@@ -279,6 +288,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       appBarTitle: language.editProfile,
+
       child: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Form(

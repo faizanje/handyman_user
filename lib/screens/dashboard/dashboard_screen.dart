@@ -91,7 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Observer(builder: (context) => appStore.isLoggedIn ? BookingFragment() : SignInScreen(isFromDashboard: true)),
           CategoryScreen(),
           Observer(builder: (context) => appStore.isLoggedIn ? ChatListScreen() : SignInScreen(isFromDashboard: true)),
-          ProfileFragment(),
+          // ProfileFragment(),
         ][currentIndex],
         bottomNavigationBar: Blur(
           blur: 30,
@@ -127,11 +127,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   selectedIcon: ic_chat.iconImage(color: context.primaryColor),
                   label: language.lblChat,
                 ),
-                NavigationDestination(
-                  icon: ic_profile2.iconImage(color: appTextSecondaryColor),
-                  selectedIcon: ic_profile2.iconImage(color: context.primaryColor),
-                  label: language.profile,
-                ),
+                // NavigationDestination(
+                //   icon: ic_profile2.iconImage(color: appTextSecondaryColor),
+                //   selectedIcon: ic_profile2.iconImage(color: context.primaryColor),
+                //   label: language.profile,
+                // ),
               ],
               onDestinationSelected: (index) {
                 currentIndex = index;
