@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		5BF04228499F80A25D0862F3 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00993C22513B296ED1B6500D /* Pods_OneSignalNotificationServiceExtension.framework */; };
 		674A366C2A1C9EE80063EF54 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 674A366B2A1C9EE70063EF54 /* GoogleService-Info.plist */; };
+		676831BA2A2FE0A10066707C /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 670897A22A21079300187C13 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		67F4C8DD2A30668A00B6DABD /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00993C22513B296ED1B6500D /* Pods_OneSignalNotificationServiceExtension.framework */; };
+		67F4C8DE2A30668A00B6DABD /* Pods_OneSignalNotificationServiceExtension.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00993C22513B296ED1B6500D /* Pods_OneSignalNotificationServiceExtension.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -19,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		676831BB2A2FE0A20066707C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FF6BB761271840CC00DEACBD;
+			remoteInfo = OneSignalNotificationServiceExtension;
+		};
 		FF6BB767271840CC00DEACBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
@@ -29,6 +38,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		67F4C8DF2A30668B00B6DABD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				67F4C8DE2A30668A00B6DABD /* Pods_OneSignalNotificationServiceExtension.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,6 +65,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				676831BA2A2FE0A10066707C /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF04228499F80A25D0862F3 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
+				67F4C8DD2A30668A00B6DABD /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +205,7 @@
 			);
 			dependencies = (
 				FF6BB768271840CC00DEACBD /* PBXTargetDependency */,
+				676831BC2A2FE0A20066707C /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -199,6 +221,7 @@
 				FF6BB75F271840CC00DEACBD /* Frameworks */,
 				FF6BB760271840CC00DEACBD /* Resources */,
 				1CAB514EFB076D3EF1C4C977 /* [CP] Copy Pods Resources */,
+				67F4C8DF2A30668B00B6DABD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -418,6 +441,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		676831BC2A2FE0A20066707C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FF6BB761271840CC00DEACBD /* OneSignalNotificationServiceExtension */;
+			targetProxy = 676831BB2A2FE0A20066707C /* PBXContainerItemProxy */;
+		};
 		FF6BB768271840CC00DEACBD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FF6BB761271840CC00DEACBD /* OneSignalNotificationServiceExtension */;

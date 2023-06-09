@@ -185,7 +185,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                                         print(paymentMethod!.name);
                                                       }
                                                     });
-                                                    Navigator.pop(context);
+                                                    Navigator.pop(buildContext);
                                                   },
                                                 ),
                                               );
