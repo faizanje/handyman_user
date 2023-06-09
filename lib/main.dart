@@ -171,18 +171,24 @@ class _MainAppSelector extends StatelessWidget {
                        final isLogedIn = user.read("isLogedIn");
                        print("USER LOGIN " + isLogedIn.toString());
 
-                       if(isLogedIn){
+                       if(isLogedIn==null){
 
-                         Navigator.push(
-                             context,
-                             MaterialPageRoute(
-                               builder: (context) => CustomerMainPage(),
-                             ),
-                         );
-                       }
-                       else{
 
                          toast("Please create or SignIn account first!");
+                       }
+                       else if(isLogedIn){
+                         Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                             builder: (context) => CustomerMainPage(),
+                           ),
+                         );
+
+                       }
+
+                         else{
+                         toast("Please create or SignIn account first!");
+
                        }
 
 

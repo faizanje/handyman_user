@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:driver_customer_app/src/views/screens/home.dart';
+import 'package:driver_customer_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -29,7 +30,7 @@ class _BaseSplashScreenState extends State<BaseSplashScreen> {
           channelKey: 'high_importance_channel',
           channelName: 'Important notifications',
           channelDescription: 'App Notifications',
-          defaultColor: Color(0xFF007FF4),
+          defaultColor: MyColor.primaryColor,
         )
       ],
       channelGroups: [
@@ -40,7 +41,7 @@ class _BaseSplashScreenState extends State<BaseSplashScreen> {
     // await GlobalConfiguration().loadFromAsset("cfg/app_settings");
     // await GlobalConfiguration().loadFromAsset("app_settings");
     await GlobalConfiguration()
-        .loadFromMap({"base_url": "https://speedtaxi.org/", "api_base_url": "https://speedtaxi.org/api/"});
+        .loadFromMap({"base_url": "https://veertaxi.eshkihmak.online/", "api_base_url": "https://veertaxi.eshkihmak.online/api/"});
     print("Map loaded");
   }
 
