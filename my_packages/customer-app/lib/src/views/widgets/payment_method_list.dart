@@ -13,8 +13,12 @@ import '../../repositories/setting_repository.dart';
 class PaymentMethodListWidget extends StatelessWidget {
   final SelectedPaymentMethod? selectedPaymentMethod;
   final Function(SelectedPaymentMethod? paymentMethod)? onSelectedPaymentChanged;
-  const PaymentMethodListWidget(this.selectedPaymentMethod, this.onSelectedPaymentChanged, {Key? key})
+
+  const PaymentMethodListWidget(this.selectedPaymentMethod, this.onSelectedPaymentChanged,
+      {Key? key, required this.parentContext})
       : super(key: key);
+
+  final BuildContext parentContext;
 
   Widget buildPaymentTile(_context, Widget icon, SelectedPaymentMethod paymentMethod) {
     bool isSelected = selectedPaymentMethod?.id == paymentMethod.id;
@@ -61,101 +65,99 @@ class PaymentMethodListWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Builder(
-      builder: (_context) {
-        return Wrap(
-          children: [
-            Align(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: Dimensions.PADDING_SIZE_DEFAULT,
-                  bottom: Dimensions.PADDING_SIZE_DEFAULT,
-                ),
-                child: Text(
-                  // 'Select the payment ',
-                  AppLocalizations.of(_context)!.selectPaymentMethod,
-                  style: kSubtitleStyle,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+  Widget build(BuildContext ctx) {
+    final context = parentContext;
+    return Wrap(
+      children: [
+        Align(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: Dimensions.PADDING_SIZE_DEFAULT,
+              bottom: Dimensions.PADDING_SIZE_DEFAULT,
             ),
-            for (var paymentMethod in setting.value.offlinePaymentMethods)
-              buildPaymentTile(
-                context,
-                paymentMethod.picture!.id.isEmpty
-                    ? Icon(FontAwesomeIcons.dollarSign, color: Colors.green[800])
-                    : Image.network(
-                        paymentMethod.picture!.url,
-                      ),
-                SelectedPaymentMethod(PaymentTypeEnum.offline,
-                    id: paymentMethod.id, name: paymentMethod.name, offlinePaymentMethod: paymentMethod),
-              ),
-            if (setting.value.stripeEnabled)
-              buildPaymentTile(
-                context,
-                Icon(
-                  FontAwesomeIcons.ccStripe,
-                  color: selectedPaymentMethod?.id == PaymentGatewayEnum.stripe.name
-                      ? Theme.of(context).highlightColor
-                      : Theme.of(context).colorScheme.primary,
-                  size: 40,
-                ),
-                SelectedPaymentMethod(PaymentTypeEnum.online,
-                    id: PaymentGatewayEnum.stripe.name,
-                    name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.stripe, context)),
-              ),
-            if (setting.value.mercadoPagoEnabled)
-              buildPaymentTile(
-                context,
-                Image.asset(
-                  Assets.mercadoPago,
-                ),
-                SelectedPaymentMethod(PaymentTypeEnum.online,
-                    id: PaymentGatewayEnum.mercado_pago.name,
-                    name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.mercado_pago, context)),
-              ),
-            if (setting.value.paypalEnabled)
-              buildPaymentTile(
-                context,
-                Icon(
-                  FontAwesomeIcons.ccPaypal,
-                  color: selectedPaymentMethod?.id == PaymentGatewayEnum.paypal.name
-                      ? Theme.of(context).highlightColor
-                      : Theme.of(context).colorScheme.primary,
-                  size: 40,
-                ),
-                SelectedPaymentMethod(PaymentTypeEnum.online,
-                    id: PaymentGatewayEnum.paypal.name,
-                    name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.paypal, context)),
-              ),
-            if (setting.value.flutterwaveEnabled)
-              buildPaymentTile(
-                context,
-                Image.asset(
-                  Assets.flutterwave,
-                ),
-                SelectedPaymentMethod(
-                  PaymentTypeEnum.online,
-                  id: PaymentGatewayEnum.flutterwave.name,
-                  name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.flutterwave, context),
-                ),
-              ),
-            if (setting.value.razorpayEnabled)
-              buildPaymentTile(
-                context,
-                Image.asset(
-                  Assets.razorpay,
-                ),
-                SelectedPaymentMethod(
-                  PaymentTypeEnum.online,
-                  id: PaymentGatewayEnum.razorpay.name,
-                  name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.razorpay, context),
-                ),
-              ),
-          ],
-        );
-      }
+            child: Text(
+              // 'Select the payment ',
+              AppLocalizations.of(context)!.selectPaymentMethod,
+              // AppLocalizations.of(context)!.selectPaymentMethod,
+              style: kSubtitleStyle,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        for (var paymentMethod in setting.value.offlinePaymentMethods)
+          buildPaymentTile(
+            context,
+            paymentMethod.picture!.id.isEmpty
+                ? Icon(FontAwesomeIcons.dollarSign, color: Colors.green[800])
+                : Image.network(
+                    paymentMethod.picture!.url,
+                  ),
+            SelectedPaymentMethod(PaymentTypeEnum.offline,
+                id: paymentMethod.id, name: paymentMethod.name, offlinePaymentMethod: paymentMethod),
+          ),
+        if (setting.value.stripeEnabled)
+          buildPaymentTile(
+            context,
+            Icon(
+              FontAwesomeIcons.ccStripe,
+              color: selectedPaymentMethod?.id == PaymentGatewayEnum.stripe.name
+                  ? Theme.of(context).highlightColor
+                  : Theme.of(context).colorScheme.primary,
+              size: 40,
+            ),
+            SelectedPaymentMethod(PaymentTypeEnum.online,
+                id: PaymentGatewayEnum.stripe.name,
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.stripe, context)),
+          ),
+        if (setting.value.mercadoPagoEnabled)
+          buildPaymentTile(
+            context,
+            Image.asset(
+              Assets.mercadoPago,
+            ),
+            SelectedPaymentMethod(PaymentTypeEnum.online,
+                id: PaymentGatewayEnum.mercado_pago.name,
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.mercado_pago, context)),
+          ),
+        if (setting.value.paypalEnabled)
+          buildPaymentTile(
+            context,
+            Icon(
+              FontAwesomeIcons.ccPaypal,
+              color: selectedPaymentMethod?.id == PaymentGatewayEnum.paypal.name
+                  ? Theme.of(context).highlightColor
+                  : Theme.of(context).colorScheme.primary,
+              size: 40,
+            ),
+            SelectedPaymentMethod(PaymentTypeEnum.online,
+                id: PaymentGatewayEnum.paypal.name,
+                name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.paypal, context)),
+          ),
+        if (setting.value.flutterwaveEnabled)
+          buildPaymentTile(
+            context,
+            Image.asset(
+              Assets.flutterwave,
+            ),
+            SelectedPaymentMethod(
+              PaymentTypeEnum.online,
+              id: PaymentGatewayEnum.flutterwave.name,
+              name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.flutterwave, context),
+            ),
+          ),
+        if (setting.value.razorpayEnabled)
+          buildPaymentTile(
+            context,
+            Image.asset(
+              Assets.razorpay,
+            ),
+            SelectedPaymentMethod(
+              PaymentTypeEnum.online,
+              id: PaymentGatewayEnum.razorpay.name,
+              name: PaymentGatewayEnumHelper.description(PaymentGatewayEnum.razorpay, context),
+            ),
+          ),
+      ],
     );
   }
 }

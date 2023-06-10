@@ -187,6 +187,7 @@ class _HomeScreenState extends StateMVC<HomeScreen> {
                                                     });
                                                     Navigator.pop(buildContext);
                                                   },
+                                                  parentContext: context,
                                                 ),
                                               );
                                             });
