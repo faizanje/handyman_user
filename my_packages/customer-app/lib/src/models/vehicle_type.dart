@@ -14,14 +14,15 @@ class VehicleType {
     this.isDefault = false,
   });
 
+  @override
+  String toString() {
+    return 'VehicleType{id: $id, name: $name, basePrice: $basePrice, picture: $picture, isDefault: $isDefault}';
+  }
+
   VehicleType.fromJSON(Map<String, dynamic> jsonMap)
       : id = jsonMap['id']?.toString() ?? '',
         name = jsonMap['name'] ?? '',
-        basePrice = jsonMap['base_price'] != null
-            ? double.parse(jsonMap['base_price'].toString())
-            : 0.00,
-        picture = (jsonMap['has_media'] ?? false)
-            ? Media.fromJSON(jsonMap['media'][0])
-            : null,
+        basePrice = jsonMap['base_price'] != null ? double.parse(jsonMap['base_price'].toString()) : 0.00,
+        picture = (jsonMap['has_media'] ?? false) ? Media.fromJSON(jsonMap['media'][0]) : null,
         isDefault = jsonMap['default'] ?? false;
 }

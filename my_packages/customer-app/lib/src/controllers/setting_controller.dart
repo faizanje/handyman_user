@@ -19,6 +19,7 @@ class SettingController extends ControllerMVC {
 
   Future<void> doGetSettings() async {
     await getSettings().then((Setting _setting) async {
+      print('doGetSettings: ${_setting.toString()}');
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('settings', json.encode(_setting.toJSON()));
       setting.value = _setting;
