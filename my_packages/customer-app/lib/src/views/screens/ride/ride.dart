@@ -26,8 +26,7 @@ import '../payment/paypal.dart';
 class RideScreen extends StatefulWidget {
   final String rideId;
   final bool showButtons;
-  const RideScreen({Key? key, required this.rideId, this.showButtons = true})
-      : super(key: key);
+  const RideScreen({Key? key, required this.rideId, this.showButtons = true}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -37,8 +36,7 @@ class RideScreen extends StatefulWidget {
 
 class RideScreenState extends StateMVC<RideScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RideTrackingWidgetState> trackingKey =
-      GlobalKey<RideTrackingWidgetState>();
+  final GlobalKey<RideTrackingWidgetState> trackingKey = GlobalKey<RideTrackingWidgetState>();
   late RideController _con;
   int currentTab = 0;
   late FToast fToast;
@@ -89,8 +87,7 @@ class RideScreenState extends StateMVC<RideScreen> {
     timerStatus = Timer.periodic(const Duration(seconds: 10), (timer) {
       final StatusEnum tmpRideStatus = _con.ride!.rideStatus!;
       _con.doCheckRideStatus(_con.ride!).then((value) {
-        if (tmpRideStatus == StatusEnum.waiting &&
-            tmpRideStatus != _con.ride!.rideStatus) {
+        if (tmpRideStatus == StatusEnum.waiting && tmpRideStatus != _con.ride!.rideStatus) {
           Navigator.pushReplacementNamed(
             context,
             '/Ride',
@@ -117,16 +114,14 @@ class RideScreenState extends StateMVC<RideScreen> {
               ? TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text:
-                          '${AppLocalizations.of(context)!.ride} #${_con.ride!.id} - ',
+                      text: '${AppLocalizations.of(context)!.ride} #${_con.ride!.id} - ',
                       style: khulaSemiBold.copyWith(
                         fontSize: Dimensions.FONT_SIZE_LARGE,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
                     TextSpan(
-                      text: StatusEnumHelper.description(
-                          _con.ride!.rideStatus, context),
+                      text: StatusEnumHelper.description(_con.ride!.rideStatus, context),
                       style: khulaBold.copyWith(
                         fontSize: Dimensions.FONT_SIZE_LARGE,
                         color: Theme.of(context).primaryColor,
@@ -138,8 +133,7 @@ class RideScreenState extends StateMVC<RideScreen> {
         ),
         actions: [
           if (_con.ride != null &&
-              (_con.ride!.rideStatus == StatusEnum.accepted ||
-                  _con.ride!.rideStatus == StatusEnum.in_progress))
+              (_con.ride!.rideStatus == StatusEnum.accepted || _con.ride!.rideStatus == StatusEnum.in_progress))
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(
@@ -168,14 +162,11 @@ class RideScreenState extends StateMVC<RideScreen> {
         elevation: 0,
       ),
       bottomNavigationBar: _con.ride != null &&
-              (_con.ride!.rideStatus == StatusEnum.waiting ||
-                  _con.ride!.rideStatus == StatusEnum.completed)
+              (_con.ride!.rideStatus == StatusEnum.waiting || _con.ride!.rideStatus == StatusEnum.completed)
           ? _con.ride!.paymentStatus == StatusEnum.paid
               ? SizedBox()
               : Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(color: Colors.black54, blurRadius: 10)
-                  ]),
+                  decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 10)]),
                   child: BottomAppBar(
                     child: Container(
                       height: 80,
@@ -186,20 +177,15 @@ class RideScreenState extends StateMVC<RideScreen> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: Column(
                               children: [
-                                if (_con.ride!.paymentGateway ==
-                                    PaymentGatewayEnum.stripe)
+                                if (_con.ride!.paymentGateway == PaymentGatewayEnum.stripe)
                                   StripePaymentWidget(_con.ride!)
-                                else if (_con.ride!.paymentGateway ==
-                                    PaymentGatewayEnum.mercado_pago)
+                                else if (_con.ride!.paymentGateway == PaymentGatewayEnum.mercado_pago)
                                   MercadoPagoPaymentWidget(_con.ride!)
-                                else if (_con.ride!.paymentGateway ==
-                                    PaymentGatewayEnum.paypal)
+                                else if (_con.ride!.paymentGateway == PaymentGatewayEnum.paypal)
                                   PaypalPaymentWidget(_con.ride!)
-                                else if (_con.ride!.paymentGateway ==
-                                    PaymentGatewayEnum.flutterwave)
+                                else if (_con.ride!.paymentGateway == PaymentGatewayEnum.flutterwave)
                                   FlutterwavePaymentWidget(_con.ride!)
-                                else if (_con.ride!.paymentGateway ==
-                                    PaymentGatewayEnum.razorpay)
+                                else if (_con.ride!.paymentGateway == PaymentGatewayEnum.razorpay)
                                   RazorpayPaymentWidget(_con.ride!)
                               ],
                             )),
@@ -217,8 +203,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                     Text(
                       AppLocalizations.of(context)!.rideNotFound,
                       style: khulaBold.copyWith(
-                          fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
-                          color: Theme.of(context).colorScheme.secondary),
+                          fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE, color: Theme.of(context).colorScheme.secondary),
                     ),
                     Container(
                       margin: const EdgeInsets.only(
@@ -251,8 +236,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                         label: Text(
                           AppLocalizations.of(context)!.tryAgain,
                           style: poppinsSemiBold.copyWith(
-                              color: Theme.of(context).highlightColor,
-                              fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
+                              color: Theme.of(context).highlightColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
                         ),
                       ),
                     ),
@@ -261,8 +245,7 @@ class RideScreenState extends StateMVC<RideScreen> {
               : _con.ride!.rideStatus == StatusEnum.pending
                   ? RidePendingWidget(_con.ride!, () async {
                       await _con.doCancelRide(_con.ride!).then((value) {
-                        Navigator.of(context)
-                            .pushReplacementNamed('/RecentRides');
+                        Navigator.of(context).pushReplacementNamed('/RecentRides');
                       });
                     })
                   : _con.ride!.rideStatus == StatusEnum.completed &&
@@ -285,8 +268,7 @@ class RideScreenState extends StateMVC<RideScreen> {
                       : _con.ride!.rideStatus == StatusEnum.accepted ||
                               _con.ride!.rideStatus == StatusEnum.in_progress ||
                               _con.ride!.rideStatus == StatusEnum.waiting
-                          ? RideTrackingWidget(
-                              key: trackingKey, ride: _con.ride!)
+                          ? RideTrackingWidget(key: trackingKey, ride: _con.ride!)
                           : Column(
                               children: [
                                 SizedBox(

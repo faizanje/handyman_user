@@ -6,11 +6,13 @@ import '../../helper/styles.dart';
 
 class CancelRideConfirmationDialog extends StatelessWidget {
   final VoidCallback onConfirmed;
-  const CancelRideConfirmationDialog({Key? key, required this.onConfirmed})
+  final BuildContext parentContext;
+  const CancelRideConfirmationDialog({Key? key, required this.onConfirmed, required this.parentContext})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
+    final context = parentContext;
     return Dialog(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
@@ -19,8 +21,7 @@ class CancelRideConfirmationDialog extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: Dimensions.PADDING_SIZE_LARGE,
-                vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE * 1.5),
+                horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE * 1.5),
             child: Text(AppLocalizations.of(context)!.reallyWantCancelRide,
                 style: rubikBold.copyWith(
                   fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
@@ -55,10 +56,9 @@ class CancelRideConfirmationDialog extends StatelessWidget {
               )),
               Expanded(
                 child: InkWell(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pop(ctx),
                   child: Container(
-                    padding:
-                        const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                    padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(

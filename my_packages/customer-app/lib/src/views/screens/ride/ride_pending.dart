@@ -13,9 +13,10 @@ import '../../../models/ride.dart';
 class RidePendingWidget extends StatelessWidget {
   final Ride ride;
   final Function onCancelRide;
+
   RidePendingWidget(this.ride, this.onCancelRide, {Key? key}) : super(key: key);
 
-  bool loading = false;
+  final bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,11 @@ class RidePendingWidget extends StatelessWidget {
             myLocationEnabled: false,
             myLocationButtonEnabled: false,
             onMapCreated: (controller) async {
-              String style = await DefaultAssetBundle.of(context)
-                  .loadString(Assets.mapStyle);
+              String style = await DefaultAssetBundle.of(context).loadString(Assets.mapStyle);
               controller.setMapStyle(style);
             },
             initialCameraPosition: CameraPosition(
-              target: LatLng(ride.boardingLocation!.latitude,
-                  ride.boardingLocation!.longitude),
+              target: LatLng(ride.boardingLocation!.latitude, ride.boardingLocation!.longitude),
               zoom: 15,
             ),
           ),
@@ -82,8 +81,7 @@ class RidePendingWidget extends StatelessWidget {
                           children: [
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: AutoSizeText(
                                 AppLocalizations.of(context)!.lookingForDriver,
                                 style: kTitleStyle,
@@ -96,12 +94,16 @@ class RidePendingWidget extends StatelessWidget {
                               onTap: () {
                                 showDialog(
                                   context: context,
-                                  builder: (context) =>
+                                  builder: (_) => Column(
+                                    children: [
                                       CancelRideConfirmationDialog(
-                                    onConfirmed: () async {
-                                      Navigator.of(context).pop();
-                                      await onCancelRide();
-                                    },
+                                        parentContext: context,
+                                        onConfirmed: () async {
+                                          Navigator.of(context).pop();
+                                          await onCancelRide();
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
