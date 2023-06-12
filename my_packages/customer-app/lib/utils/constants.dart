@@ -1,2 +1,2 @@
-const base_url = "https://speedtaxi.org/";
-const api_base_url = "https://speedtaxi.org/api/";
+const base_url = "https://veertaxi.eshkihmak.online/";
+const api_base_url = "https://veertaxi.eshkihmak.online/api/";

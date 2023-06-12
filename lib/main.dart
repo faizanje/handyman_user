@@ -140,12 +140,13 @@ class AppSelectorPage extends StatelessWidget {
 }
 
 class _MainAppSelector extends StatelessWidget {
-  const _MainAppSelector({
-    super.key,
-  });
 
+  final user = GetStorage();
+  // late final isLoged;
   @override
   Widget build(BuildContext context) {
+
+    // isLoged = user.read("isLogedIn");
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -167,7 +168,7 @@ class _MainAppSelector extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                       final user = GetStorage();
+
                        final isLogedIn = user.read("isLogedIn");
                        print("USER LOGIN " + isLogedIn.toString());
 
@@ -239,7 +240,6 @@ class _MainAppSelector extends StatelessWidget {
                       print("USER LOGIN " + isLogedIn.toString());
 
                       if(isLogedIn){
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -298,6 +298,9 @@ class _MainAppSelector extends StatelessWidget {
                 ],
               ),
             ),
+
+
+
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:16.0,vertical: 8),

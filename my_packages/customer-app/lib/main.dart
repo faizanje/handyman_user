@@ -31,6 +31,9 @@ Future<void> main() async {
     ],
     debug: true,
   );
+  await GlobalConfiguration()
+      .loadFromMap({"base_url": "https://veertaxi.eshkihmak.online/", "api_base_url": "https://veertaxi.eshkihmak.online/api/"});
+  print("Map loaded");
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const CustomerMainPage());
