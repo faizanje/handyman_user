@@ -44,8 +44,7 @@
             android:value="2" />
         <!-- replace with your google maps key -->
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyADPPUrR0O7TGmWggwLh0GqRnat0T9Vbvc"
-
+            android:value="AIzaSyDvYufPzBJHvPQWp5fJ81Ld7xm1bYJd3mw"
             />
     </application>
 </manifest>

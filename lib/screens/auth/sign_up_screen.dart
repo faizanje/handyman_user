@@ -109,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           final customerUserController = customer_user_controller.UserController();
           await customerUserController.doRegister('${tempRegisterData.firstName} ${tempRegisterData.lastName}',
               tempRegisterData.email!, tempRegisterData.contactNumber!, tempRegisterData.password!,
-              newDomain: 'https://speedtaxi.org/api/');
+              newDomain: 'https://veertaxi.eshkihmak.online/api/');
 
           /// After successful entry in the mysql database it will login into firebase.
           firebaseSignup(registerResponse: registerResponse);

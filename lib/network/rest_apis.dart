@@ -179,9 +179,15 @@ Future<void> logout(BuildContext context) async {
                     await clearPreferences();
 
                     appStore.setLoading(false);
+                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AppSelectorPage()),
+                      ModalRoute.withName('/'),
+                    );
 
-                    Navigator.pop(context);
-                    //
+
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
